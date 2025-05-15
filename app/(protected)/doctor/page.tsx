@@ -12,6 +12,10 @@ import { BriefcaseBusiness, BriefcaseMedical, Star, User, Users } from "lucide-r
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+import { motion } from "framer-motion";
+import { DashboardCardsClient } from "./dashboard-cards-client";
+import { ProfileImage } from "@/components/profile-image";
+import { RecentPatientsClient } from "./recent-patients-client";
 
 const DoctorDashboard = async () => {
   const user = await currentUser();
@@ -34,8 +38,8 @@ const DoctorDashboard = async () => {
   const cardData = [
     {
       title: "Patients",
-      value: totalPatient,
-      icon: Users,
+      value: totalPatient ?? 0,
+      iconKey: "users",
       className: "bg-blue-600/15",
       iconClassName: "bg-blue-600/25 text-blue-600",
       note: "Total patients",
@@ -43,8 +47,8 @@ const DoctorDashboard = async () => {
     },
     {
       title: "Appointments",
-      value: totalAppointment,
-      icon: BriefcaseBusiness,
+      value: totalAppointment ?? 0,
+      iconKey: "briefcaseBusiness",
       className: "bg-yellow-600/15",
       iconClassName: "bg-yellow-600/25 text-yellow-600",
       note: "Successful appointments",
@@ -52,8 +56,8 @@ const DoctorDashboard = async () => {
     },
     {
       title: "Consultation",
-      value: appointmentCounts?.COMPLETED,
-      icon: BriefcaseMedical,
+      value: appointmentCounts?.COMPLETED ?? 0,
+      iconKey: "briefcaseMedical",
       className: "bg-emerald-600/15",
       iconClassName: "bg-emerald-600/25 text-emerald-600",
       note: "Total consultation",
@@ -61,8 +65,8 @@ const DoctorDashboard = async () => {
     },
     {
       title: "Rating",
-      value: `${averageRating.toFixed(1)}/5`,
-      icon: Star,
+      value: `${averageRating.toFixed(1)}`,
+      iconKey: "star",
       className: "bg-amber-600/15",
       iconClassName: "bg-amber-600/25 text-amber-600",
       note: `${ratings.length} reviews`,
@@ -70,34 +74,36 @@ const DoctorDashboard = async () => {
     },
   ];
 
+  const greeting = new Date().getHours() < 12 ? "Good Morning" : new Date().getHours() < 18 ? "Good Afternoon" : "Good Evening";
+
   return (
     <div className="rounded-xl py-6 px-3 flex flex-col xl:flex-row gap-6">
       {/* LEFT */}
       <div className="w-full xl:w-[69%]">
         <div className="bg-white rounded-xl p-4 mb-8">
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-lg xl:text-2xl font-semibold">
-              Welcome, Dr. {user?.firstName}
-            </h1>
-            <Button size="sm" variant="outline" asChild>
-              <Link href={`/record/doctors/${user?.id}`}>View profile</Link>
+            <div className="mb-6">
+              <h1 className="text-3xl font-extrabold text-gray-900 drop-shadow-sm font-sans tracking-tight">
+                <span className="font-semibold text-gray-700">{greeting},</span> <span className="font-extrabold text-gray-900">Dr. {user?.firstName} {user?.lastName}</span>
+              </h1>
+              <p className="text-gray-500 text-base mt-1">
+                Here's your dashboard. Wishing you a productive day!
+              </p>
+            </div>
+            <Button
+              size="sm"
+              variant="outline"
+              asChild
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500 text-blue-600 font-semibold text-sm bg-white hover:bg-blue-50 hover:text-blue-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+            >
+              <Link href={`/record/doctors/${user?.id}`}>
+                <User className="w-4 h-4 mr-1" />
+                View Profile
+              </Link>
             </Button>
           </div>
 
-          <div className="w-full flex flex-wrap gap-2">
-            {cardData?.map((el, index) => (
-              <StatCard
-                key={index}
-                title={el?.title}
-                value={el?.value!}
-                icon={el?.icon}
-                className={el?.className}
-                iconClassName={el?.iconClassName}
-                note={el?.note}
-                link={el?.link}
-              />
-            ))}
-          </div>
+          <DashboardCardsClient cardData={cardData} />
         </div>
 
         <div className="h-[500px]">
@@ -115,7 +121,23 @@ const DoctorDashboard = async () => {
           <StatSummary data={appointmentCounts} total={totalAppointment!} />
         </div>
 
-        <AvailableDoctors data={availableDoctors as any} />
+        {/* Recent Patients Card */}
+        <RecentPatientsClient
+          recentPatients={
+            (last5Records ?? [])
+              .filter((a, i, arr) =>
+                arr.findIndex(x => x.patient?.id === a.patient?.id) === i && a.patient)
+              .slice(0, 4)
+              .map(a => ({
+                id: a.patient.id,
+                first_name: a.patient.first_name,
+                last_name: a.patient.last_name,
+                gender: a.patient.gender,
+                img: a.patient.img,
+                colorCode: a.patient.colorCode,
+              }))
+          }
+        />
       </div>
     </div>
   );

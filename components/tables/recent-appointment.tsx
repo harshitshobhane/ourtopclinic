@@ -90,14 +90,6 @@ export const RecentAppointments = ({ data }: DataProps) => {
         <td className="px-2 align-middle">
           <div className="flex items-center gap-x-2 h-9">
             <ViewAppointment id={item?.id} />
-            <Link
-              href={`/record/appointments/${item?.id}`}
-              className="inline-flex items-center gap-1 rounded-full border border-blue-100 bg-blue-50 hover:bg-blue-100 text-blue-600 text-xs font-medium px-3 py-1 transition-colors h-8"
-              title="See all details"
-              style={{ lineHeight: '1.2' }}
-            >
-              See all <ArrowUpRight className="w-4 h-4" />
-            </Link>
           </div>
         </td>
       </tr>
