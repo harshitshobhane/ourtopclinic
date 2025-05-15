@@ -6,8 +6,9 @@ import { RecentAppointments } from "@/components/tables/recent-appointment";
 import { Button } from "@/components/ui/button";
 import { checkRole, getRole } from "@/utils/roles";
 import { getDoctorDashboardStats } from "@/utils/services/doctor";
+import { getDoctorRatings } from "@/utils/services/rating";
 import { currentUser } from "@clerk/nextjs/server";
-import { BriefcaseBusiness, BriefcaseMedical, User, Users } from "lucide-react";
+import { BriefcaseBusiness, BriefcaseMedical, Star, User, Users } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -23,6 +24,12 @@ const DoctorDashboard = async () => {
     monthlyData,
     last5Records,
   } = await getDoctorDashboardStats();
+
+  // Get ratings for the current doctor
+  const ratings = await getDoctorRatings(user?.id!);
+  const averageRating = ratings.length > 0
+    ? ratings.reduce((acc, curr) => acc + curr.rating, 0) / ratings.length
+    : 0;
 
   const cardData = [
     {
@@ -40,7 +47,7 @@ const DoctorDashboard = async () => {
       icon: BriefcaseBusiness,
       className: "bg-yellow-600/15",
       iconClassName: "bg-yellow-600/25 text-yellow-600",
-      note: "Total appointments",
+      note: "Successful appointments",
       link: "/record/appointments",
     },
     {
@@ -51,6 +58,15 @@ const DoctorDashboard = async () => {
       iconClassName: "bg-emerald-600/25 text-emerald-600",
       note: "Total consultation",
       link: "/record/appointments",
+    },
+    {
+      title: "Rating",
+      value: `${averageRating.toFixed(1)}/5`,
+      icon: Star,
+      className: "bg-amber-600/15",
+      iconClassName: "bg-amber-600/25 text-amber-600",
+      note: `${ratings.length} reviews`,
+      link: `/record/doctors/${user?.id}/ratings-list`,
     },
   ];
 

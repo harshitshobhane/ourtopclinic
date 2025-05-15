@@ -10,7 +10,7 @@ interface CardProps {
   title: string;
   icon: LucideIcon;
   note: string;
-  value: number;
+  value: number | string;
   className?: string;
   iconClassName?: string;
   link: string;
@@ -75,8 +75,8 @@ export const StatCard = ({
           </div>
           <div className="flex flex-col gap-1">
             <h2 className="text-4xl font-extrabold text-gray-900 drop-shadow-sm tracking-tight">
-            {formatNumber(value)}
-          </h2>
+              {typeof value === 'number' ? formatNumber(value) : value}
+            </h2>
             <span className="text-xs text-gray-500 font-medium leading-tight">{note}</span>
           </div>
         </div>

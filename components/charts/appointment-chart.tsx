@@ -1,7 +1,7 @@
 "use client";
 import { AppointmentsChartProps } from "@/types/data-types";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   AreaChart,
@@ -18,6 +18,23 @@ interface DataProps {
   data: AppointmentsChartProps;
 }
 export const AppointmentChart = ({ data }: DataProps) => {
+  const [chartHeight, setChartHeight] = useState(300);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      setChartHeight(window.innerWidth < 640 ? 180 : 300);
+    };
+
+    // Set initial height
+    updateHeight();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', updateHeight);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   return (
     <div className="relative bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-emerald-100 p-2 sm:p-6 h-full overflow-hidden w-full">
       {/* Animated Gradient accent bar */}
@@ -35,7 +52,7 @@ export const AppointmentChart = ({ data }: DataProps) => {
         </div>
       </div>
       <div className="rounded-xl bg-gradient-to-br from-white/90 via-emerald-50 to-blue-50 p-2 sm:p-4 shadow-inner w-full">
-        <ResponsiveContainer width="100%" height={window.innerWidth < 640 ? 180 : 300}>
+        <ResponsiveContainer width="100%" height={chartHeight}>
           <AreaChart data={data}>
             <defs>
               <linearGradient id="colorAppointment" x1="0" y1="0" x2="0" y2="1">
