@@ -13,8 +13,8 @@ import { MdEmail, MdLocalPhone } from "react-icons/md";
 import { DoctorProfileClient } from "./doctor-profile-client";
 import { getDoctorRatings, getRecentApplications } from "@/utils/services/rating";
 
-const DoctorProfile = async (props: { params: Promise<{ id: string }> }) => {
-  const params = await props.params;
+const DoctorProfile = async (props: { params: { id: string } }) => {
+  const { params } = props;
   const { data, totalAppointment } = await getDoctorById(params?.id);
 
   if (!data) return null;

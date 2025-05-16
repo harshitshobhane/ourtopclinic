@@ -6,17 +6,17 @@ import { MedicalHistoryContainer } from "@/components/medical-history-container"
 import { PatientRatingContainer } from "@/components/patient-rating-container";
 
 interface PatientProfilePageProps {
-  params: Promise<{
+  params: {
     patientId: string;
-  }>;
+  };
   searchParams: {
     cat?: string;
   };
 }
 
 export default async function PatientProfilePage({ params, searchParams }: PatientProfilePageProps) {
-    const { userId } = await auth();
-  const { patientId } = await params;
+  const { userId } = await auth();
+  const { patientId } = params;
   const { cat } = searchParams;
 
   // If patientId is "self", use the logged-in user's ID

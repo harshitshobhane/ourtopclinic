@@ -13,8 +13,8 @@ import { FaBriefcaseMedical, FaCalendarDays } from "react-icons/fa6";
 import { IoTimeSharp } from "react-icons/io5";
 import { MdEmail, MdLocalPhone } from "react-icons/md";
 
-const DoctorProfile = async (props: { params: Promise<{ id: string }> }) => {
-  const params = await props.params;
+const DoctorProfile = async (props: { params: { id: string } }) => {
+  const { params } = props;
   const { data, totalAppointment } = await getDoctorById(params?.id);
 
   if (!data) return null;
