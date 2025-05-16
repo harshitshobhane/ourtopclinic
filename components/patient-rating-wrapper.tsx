@@ -7,11 +7,11 @@ interface PatientRatingWrapperProps {
 
 export const PatientRatingWrapper = async ({ id }: PatientRatingWrapperProps) => {
   const { userId } = await auth();
-  const { data } = await getPatientFullDataById(id);
-
-  if (!data) {
+  const result = await getPatientFullDataById(id);
+  if (!result.success) {
     return null;
   }
+  const { data } = result as { success: true; data: any };
 
   return (
     <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
