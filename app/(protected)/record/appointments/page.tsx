@@ -121,7 +121,9 @@ const Appointments = async (props: {
         </td>
         <td className="text-center border-r border-gray-300">{item.mode === 'Virtual' ? 'Virtual' : 'In Person'}</td>
         <td className="text-center border-r border-gray-300">
-          <AppointmentStatusIndicator status={item.status!} className="rounded-none px-2 py-1 text-sm font-medium bg-white text-gray-800 border border-gray-300 shadow-none" />
+          <span className="rounded-none px-2 py-1 text-sm font-medium bg-white text-gray-800 border border-gray-300 shadow-none">
+            <AppointmentStatusIndicator status={item.status!} />
+          </span>
         </td>
         <td className="text-right pr-4">
           <span className="inline-block">
