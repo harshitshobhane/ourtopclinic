@@ -21,7 +21,7 @@ const PatientDashboard = async () => {
 
   const {
     data,
-    appointmentCounts = {},
+    appointmentCounts = {} as Record<string, number>,
     last5Records = [],
     totalAppointments = 0,
     availableDoctor = [],
