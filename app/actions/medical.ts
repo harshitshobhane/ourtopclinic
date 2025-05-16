@@ -80,7 +80,7 @@ export async function addNewBill(data: any) {
         },
       });
 
-      if (!info?.bills?.length) {
+      if (!info?.bills) {
         bill_info = await db.payment.create({
           data: {
             appointment_id: Number(data?.appointment_id),
@@ -93,7 +93,7 @@ export async function addNewBill(data: any) {
           },
         });
       } else {
-        bill_info = info?.bills[0];
+        bill_info = info.bills;
       }
     } else {
       bill_info = {
