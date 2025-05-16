@@ -2,13 +2,8 @@
 
 import { auth } from "@clerk/nextjs/server";
 
-export default async function DoctorProfilePage({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
-  searchParams?: { cat?: string };
-}) {
+export default async function MyDoctorProfilePage(props: any) {
+  const { params, searchParams } = props;
   const { userId } = await auth();
   const { id } = params;
   const cat = searchParams?.cat;
