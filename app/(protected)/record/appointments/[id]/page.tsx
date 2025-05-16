@@ -13,11 +13,12 @@ const AppointmentDetailsPage = async ({
   params,
   searchParams,
 }: {
-  params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
-  const { id } = params;
-  const cat = (searchParams?.cat as string) || "charts";
+  const { id } = await params;
+  const search = await searchParams;
+  const cat = (search?.cat as string) || "charts";
 
   const { data } = await getAppointmentWithMedicalRecordsById(Number(id));
 
