@@ -1,11 +1,14 @@
+// app/(protected)/doctor/[id]/page.tsx
+
 import { auth } from "@clerk/nextjs/server";
 
-interface DoctorProfilePageProps {
+export default async function DoctorProfilePage({
+  params,
+  searchParams,
+}: {
   params: { id: string };
   searchParams?: { cat?: string };
-}
-
-export default async function DoctorProfilePage({ params, searchParams }: DoctorProfilePageProps) {
+}) {
   const { userId } = await auth();
   const { id } = params;
   const cat = searchParams?.cat;
@@ -19,6 +22,7 @@ export default async function DoctorProfilePage({ params, searchParams }: Doctor
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
           <h1 className="text-2xl font-bold text-gray-800">Doctor Profile</h1>
           <p className="text-gray-600 mt-2">Doctor ID: {actualDoctorId}</p>
+          {cat && <p className="text-gray-600 mt-1">Category: {cat}</p>}
         </div>
       </div>
     </div>
