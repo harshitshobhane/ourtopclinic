@@ -103,7 +103,7 @@ export const AddDiagnosis = ({
             >
               <div className="flex items-center gap-4">
                 <CustomInput
-                  type="textarea"
+                  type="input"
                   control={form.control}
                   name="symptoms"
                   label="Symptoms"
@@ -113,7 +113,7 @@ export const AddDiagnosis = ({
 
               <div className="flex items-center gap-4">
                 <CustomInput
-                  type="textarea"
+                  type="input"
                   control={form.control}
                   name="diagnosis"
                   placeholder="Enter diagnosis here ..."
@@ -122,7 +122,7 @@ export const AddDiagnosis = ({
               </div>
               <div className="flex items-center gap-4">
                 <CustomInput
-                  type="textarea"
+                  type="input"
                   control={form.control}
                   name="prescribed_medications"
                   placeholder="Enter principles here ..."
@@ -132,14 +132,14 @@ export const AddDiagnosis = ({
 
               <div className="flex items-center gap-4">
                 <CustomInput
-                  type="textarea"
+                  type="input"
                   control={form.control}
                   name="notes"
                   placeholder="Optional note"
                   label="Additional Notes for this treatment"
                 />
                 <CustomInput
-                  type="textarea"
+                  type="input"
                   control={form.control}
                   name="follow_up_plan"
                   placeholder="Optional"
