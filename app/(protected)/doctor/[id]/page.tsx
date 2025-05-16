@@ -1,16 +1,14 @@
 import { auth } from "@clerk/nextjs/server";
 
 interface DoctorProfilePageProps {
-  params: Promise<{ id: string }>;
-  searchParams: {
-    cat?: string;
-  };
+  params: { id: string };
+  searchParams?: { cat?: string };
 }
 
 export default async function DoctorProfilePage({ params, searchParams }: DoctorProfilePageProps) {
   const { userId } = await auth();
-  const { id } = await params;
-  const { cat } = searchParams;
+  const { id } = params;
+  const cat = searchParams?.cat;
 
   // If id is "self", use the logged-in user's ID
   const actualDoctorId = id === "self" ? userId! : id;
