@@ -6,7 +6,7 @@ import { Table } from "@/components/tables/table";
 import { SearchParamsProps } from "@/types";
 import { checkRole } from "@/utils/roles";
 import { DATA_LIMIT } from "@/utils/seeting";
-import { getMedicalRecords } from "@/utils/services/medical-record";
+import { getMedicalRecords } from "@/utils/services/medical-record" ;
 import { Diagnosis, LabTest, MedicalRecords, Patient } from "@prisma/client";
 import { format } from "date-fns";
 import { BriefcaseBusiness } from "lucide-react";
