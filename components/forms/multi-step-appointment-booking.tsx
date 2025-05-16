@@ -28,7 +28,7 @@ export const MultiStepAppointmentBooking = ({ patient, doctors }: { patient: Pat
       </div>
       {/* Step Content */}
       {step === 1 && <PatientIntakeForm onNext={handleIntakeNext} />}
-      {step === 2 && <BookAppointment data={patient} doctors={doctors} intakeData={intakeData} />}
+      {step === 2 && <BookAppointment data={patient} doctors={doctors} />}
     </div>
   );
 }; 
