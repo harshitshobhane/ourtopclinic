@@ -8,7 +8,11 @@ interface MedicalHistoryWrapperProps {
 
 export const MedicalHistoryWrapper = async ({ patientId }: MedicalHistoryWrapperProps) => {
   const { userId } = await auth();
-  const { data } = await getPatientFullDataById(patientId);
+  const result = await getPatientFullDataById(patientId);
+  if (!result.success) {
+    return <div>Error loading medical history.</div>;
+  }
+  const { data } = result as { success: true; data: any };
 
   return (
     <div className="space-y-6">
