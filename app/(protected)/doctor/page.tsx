@@ -43,7 +43,7 @@ const DoctorDashboard = async () => {
       className: "bg-blue-600/15",
       iconClassName: "bg-blue-600/25 text-blue-600",
       note: "Total patients",
-      link: "/record/patients",
+      link: "/record/patient",
     },
     {
       title: "Appointments",

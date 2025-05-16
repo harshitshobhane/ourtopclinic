@@ -14,17 +14,25 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
+export const revalidate = 60;
+
 const PatientDashboard = async () => {
   const user = await currentUser();
 
   const {
     data,
-    appointmentCounts,
-    last5Records,
-    totalAppointments,
-    availableDoctor,
-    monthlyData,
-  } = await getPatientDashboardStatistics(user?.id!);
+    appointmentCounts = {},
+    last5Records = [],
+    totalAppointments = 0,
+    availableDoctor = [],
+    monthlyData = [],
+  } = await getPatientDashboardStatistics(user?.id!) ?? {};
+
+  // Provide default values for appointmentCounts properties
+  const CANCELLED = appointmentCounts.CANCELLED ?? 0;
+  const PENDING = appointmentCounts.PENDING ?? 0;
+  const SCHEDULED = appointmentCounts.SCHEDULED ?? 0;
+  const COMPLETED = appointmentCounts.COMPLETED ?? 0;
 
   if (user && !data) {
     redirect("/patient/registration");
@@ -43,7 +51,7 @@ const PatientDashboard = async () => {
     },
     {
       title: "cancelled",
-      value: appointmentCounts?.CANCELLED,
+      value: CANCELLED,
       icon: Briefcase,
       className: "bg-rose-600/15",
       iconClassName: "bg-rose-600/25 text-rose-600",
@@ -51,7 +59,7 @@ const PatientDashboard = async () => {
     },
     {
       title: "pending",
-      value: appointmentCounts?.PENDING! + appointmentCounts?.SCHEDULED!,
+      value: PENDING + SCHEDULED,
       icon: BriefcaseBusiness,
       className: "bg-yellow-600/15",
       iconClassName: "bg-yellow-600/25 text-yellow-600",
@@ -59,7 +67,7 @@ const PatientDashboard = async () => {
     },
     {
       title: "completed",
-      value: appointmentCounts?.COMPLETED,
+      value: COMPLETED,
       icon: BriefcaseMedical,
       className: "bg-emerald-600/15",
       iconClassName: "bg-emerald-600/25 text-emerald-600",

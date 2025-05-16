@@ -102,6 +102,11 @@ export const DoctorSchema = z.object({
       .min(8, { message: "Password must be at least 8 characters long!" })
       .optional()
       .or(z.literal("")),
+    city: z.string().min(1, "City is required"),
+    state: z.string().min(1, "State is required"),
+    zip: z.string().min(1, "Zip is required"),
+    npi_number: z.string().min(1, "NPI number is required"),
+    years_in_practice: z.string().min(1, "Years in practice is required"),
   });
   
   export const workingDaySchema = z.object({

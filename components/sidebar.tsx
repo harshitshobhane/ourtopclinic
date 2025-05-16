@@ -65,7 +65,7 @@ export const Sidebar = async () => {
         },
         {
           name: "Doctors",
-          href: "/record/doctors",
+          href: "/record/doctors/list",
           access: ["admin"],
           icon: User,
         },

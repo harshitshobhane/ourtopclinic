@@ -57,7 +57,7 @@ export const AvailableDoctors = async ({ data }: DataProps) => {
             disabled={data?.length === 0}
             className="disabled:cursor-not-allowed disabled:text-gray-200 border-emerald-200 text-emerald-700 font-semibold hover:bg-emerald-50 flex items-center gap-2"
           >
-            <Link href="/record/doctors">View all</Link>
+            <Link href="/record/doctors/list">View all</Link>
           </Button>
         )}
       </div>
@@ -77,7 +77,7 @@ export const AvailableDoctors = async ({ data }: DataProps) => {
             {/* <p>{doc.colorCode}</p> */}
             <div>
               <h2 className="font-semibold text-lg md:text-xl">{doc?.name}</h2>
-              <p className="text-base capitalize text-gray-600">
+              <p className="text-base capitalize text-gray-600">  
                 {doc?.specialization}
               </p>
               <p className="text-sm flex items-center">

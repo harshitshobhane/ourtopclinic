@@ -51,7 +51,7 @@ model Doctor {
   email               String        @unique
   name                String
   specialization      String
-  license_number      String
+  license_number      String        @unique
   phone               String
   address             String
   department          String?
@@ -65,6 +65,11 @@ model Doctor {
   diagnosis           Diagnosis[]
   ratings             Rating[]
   working_days        WorkingDays[]
+  city                String
+  state               String
+  zip                 String
+  npi_number          String
+  years_in_practice   String?
 }
 
 model WorkingDays {
