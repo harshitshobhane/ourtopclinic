@@ -9,7 +9,11 @@ const SmallCard = ({ label, value }: { label: string; value: string }) => (
 );
 
 export const DetailsCard = async ({ id }: { id: string }) => {
-  const { data } = await getPatientFullDataById(id);
+  const result = await getPatientFullDataById(id);
+  if (!result.success) {
+    return <div>Error loading details.</div>;
+  }
+  const { data } = result as { success: true; data: any };
   return (
     <div className="bg-white rounded-xl p-6 w-full lg:w-[70%] border-none space-y-6">
       <div className="flex flex-col md:flex-row md:flex-wrap md:items-center xl:justify-between gap-y-4 md:gap-x-0">
