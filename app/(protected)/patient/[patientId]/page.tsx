@@ -26,7 +26,11 @@ const PatientProfile = async (props: ParamsProps) => {
     id = userId!;
   } else id = patientId;
 
-  const { data } = await getPatientFullDataById(id);
+  const result = await getPatientFullDataById(id);
+  if (!result.success) {
+    return <div>Error loading patient: {"message" in result ? result.message : "Unknown error"}</div>;
+  }
+  const { data } = result as { success: true; data: any };
 
   const SmallCard = ({ label, value }: { label: string; value: string }) => (
     <div className="w-full md:w-1/3">
