@@ -4,9 +4,28 @@ import { useAuth, UserButton } from "@clerk/nextjs";
 import { Bell, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { Notification, NotificationItem } from "./notification";
 
 export const Navbar = () => {
   const user = useAuth();
+
+  // Example notification state (replace with real data/fetch in production)
+  const [notifications, setNotifications] = React.useState<NotificationItem[]>([
+    {
+      id: 1,
+      message: "Your appointment status changed to SCHEDULED.",
+      type: "info",
+      createdAt: new Date(),
+    },
+    {
+      id: 2,
+      message: "Appointment completed successfully!",
+      type: "success",
+      createdAt: new Date(),
+    },
+  ]);
+
+  const handleClearNotifications = () => setNotifications([]);
 
   function formatPathName(): string {
     const pathname = usePathname();
@@ -41,14 +60,8 @@ export const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="relative cursor-pointer group/notif">
-          <div className="p-2 rounded-lg bg-emerald-50/50 text-emerald-600 group-hover/notif:bg-emerald-100/50 transition-all duration-300 border border-emerald-100 group-hover/notif:border-emerald-200 group-hover/notif:shadow-sm">
-            <Bell className="size-5 transition-transform duration-300 group-hover/notif:scale-110" />
-            <p className="absolute -top-1 -right-1 size-5 bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-full text-[10px] flex items-center justify-center font-medium shadow-sm animate-bounce-subtle">
-              2
-            </p>
-          </div>
-        </div>
+        {/* Notification dropdown */}
+        <Notification notifications={notifications} onClear={handleClearNotifications} />
 
         {user?.userId && (
           <div className="hover:bg-emerald-50/50 p-1 rounded-lg transition-all duration-300 border border-emerald-100 hover:border-emerald-200 hover:shadow-sm group/user">
