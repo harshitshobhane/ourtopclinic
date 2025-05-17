@@ -147,7 +147,7 @@ export const Sidebar = async () => {
       {
         
       }
-    ],
+      ],
     },
     {
       label: "System",
@@ -206,33 +206,33 @@ export const Sidebar = async () => {
           {SIDEBAR_LINKS.map((el) => {
             if (el.access && !el.access.includes(role.toLowerCase())) return null;
             return (
-              <div key={el.label} className="space-y-1">
-                <span className="hidden lg:block text-xs font-semibold font-sans tracking-wider text-emerald-600 uppercase px-2 animate-fadeIn opacity-0 group-hover:opacity-100 transition-opacity duration-200 will-change-opacity">
-                  {el.label}
-                </span>
+            <div key={el.label} className="space-y-1">
+              <span className="hidden lg:block text-xs font-semibold font-sans tracking-wider text-emerald-600 uppercase px-2 animate-fadeIn opacity-0 group-hover:opacity-100 transition-opacity duration-200 will-change-opacity">
+                {el.label}
+              </span>
 
-                <div className="space-y-1">
-                  {el.links.map((link) => {
+              <div className="space-y-1">
+                {el.links.map((link) => {
                     if (!link.access) return null;
-                    if (link.access.includes(role.toLowerCase())) {
-                      return (
-                        <Link
-                          href={link.href}
-                          className="flex items-center gap-3 px-3 py-2 text-gray-600 rounded-lg hover:bg-emerald-50/50 hover:text-emerald-600 transition-[background,color,box-shadow] duration-200 group/link border border-transparent hover:border-emerald-100 hover:shadow-sm will-change-opacity"
-                          key={link.name}
-                        >
-                          <div className="group-hover/link:scale-110 transition-transform duration-200 will-change-transform">
-                            <SidebarIcon icon={link.icon} />
-                          </div>
-                          <span className="hidden lg:block text-sm font-medium font-sans group-hover/link:translate-x-1 transition-transform duration-200 whitespace-nowrap opacity-0 group-hover:opacity-100 will-change-opacity">
-                            {link.name}
-                          </span>
-                        </Link>
-                      );
-                    }
-                  })}
-                </div>
+                  if (link.access.includes(role.toLowerCase())) {
+                    return (
+                      <Link
+                        href={link.href}
+                        className="flex items-center gap-3 px-3 py-2 text-gray-600 rounded-lg hover:bg-emerald-50/50 hover:text-emerald-600 transition-[background,color,box-shadow] duration-200 group/link border border-transparent hover:border-emerald-100 hover:shadow-sm will-change-opacity"
+                        key={link.name}
+                      >
+                        <div className="group-hover/link:scale-110 transition-transform duration-200 will-change-transform">
+                          <SidebarIcon icon={link.icon} />
+                        </div>
+                        <span className="hidden lg:block text-sm font-medium font-sans group-hover/link:translate-x-1 transition-transform duration-200 whitespace-nowrap opacity-0 group-hover:opacity-100 will-change-opacity">
+                          {link.name}
+                        </span>
+                      </Link>
+                    );
+                  }
+                })}
               </div>
+            </div>
             );
           })}
         </div>
