@@ -2,8 +2,14 @@
 
 import { auth } from "@clerk/nextjs/server";
 
-export default async function MyDoctorProfilePage(props: any) {
-  const { params, searchParams } = props;
+interface ParamsProps {
+  params: Promise<{ id: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+const MyDoctorProfilePage = async (props: ParamsProps) => {
+  const params = await props.params;
+  const searchParams = props.searchParams ? await props.searchParams : undefined;
   const { userId } = await auth();
   const { id } = params;
   const cat = searchParams?.cat;
@@ -22,4 +28,6 @@ export default async function MyDoctorProfilePage(props: any) {
       </div>
     </div>
   );
-}
+};
+
+export default MyDoctorProfilePage;
