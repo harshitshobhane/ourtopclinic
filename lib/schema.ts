@@ -17,8 +17,8 @@ export const PatientFormSchema = z.object({
   city: z.string(),
   state: z.string(),
   zip_code: z.string().min(5, "Zip code must be at least 5 characters"),
-  preferred_contact_method: z.string(),
-  preferred_appointment_type: z.string(),
+  preferred_contact_method: z.string().min(1, "Please select a preferred contact method"),
+  preferred_appointment_type: z.string().min(1, "Please select a preferred appointment type"),
   gender: z.enum(["MALE", "FEMALE", "OTHER", "PREFER_NOT_TO_SAY"], { message: "Gender is required" }),
 
   phone: z.string().min(10, "Enter phone number").max(10, "Enter phone number"),
@@ -27,10 +27,6 @@ export const PatientFormSchema = z.object({
     .string()
     .min(5, "Address must be at least 5 characters")
     .max(500, "Address must be at most 500 characters"),
-  marital_status: z.enum(
-    ["married", "single", "divorced", "widowed", "separated"],
-    { message: "Marital status is required." }
-  ),
   emergency_contact_name: z
     .string()
     .min(2, "Emergency contact name is required.")

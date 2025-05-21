@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { HeartPulse, Menu, X, BookOpen, Stethoscope, Info, ChevronDown } from 'lucide-react';
+import { HeartPulse, Menu, X, BookOpen, Stethoscope, Info, ChevronDown, Building, Mail } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { motion, AnimatePresence } from 'framer-motion';
+import { UserButton } from '@clerk/nextjs';
 
 const NavLink = ({
   href,
@@ -157,6 +158,18 @@ const Navbar = () => {
               </NavigationMenuItem>
               
               <NavigationMenuItem>
+                <NavLink href="/partner-with-us" isActive={isActive('/partner-with-us')}>
+                    Partner With Us
+                </NavLink>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavLink href="/contact" isActive={isActive('/contact')}>
+                    Contact
+                </NavLink>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button 
@@ -242,6 +255,24 @@ const Navbar = () => {
                   <div className="flex items-center">
                     <BookOpen className="h-4 w-4 mr-2" />
                     Blog
+                  </div>
+                </NavLink>
+              </motion.div>
+              
+              <motion.div variants={itemVariants}>
+                <NavLink href="/partner-with-us" onClick={closeMenu} isActive={isActive('/partner-with-us')}>
+                  <div className="flex items-center">
+                    <Building className="h-4 w-4 mr-2" />
+                    Partner With Us
+                  </div>
+                </NavLink>
+              </motion.div>
+
+              <motion.div variants={itemVariants}>
+                <NavLink href="/contact" onClick={closeMenu} isActive={isActive('/contact')}>
+                  <div className="flex items-center">
+                    <Mail className="h-4 w-4 mr-2" />
+                    Contact
                   </div>
                 </NavLink>
               </motion.div>

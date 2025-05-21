@@ -20,6 +20,13 @@ import { RecentPatientsClient } from "./recent-patients-client";
 const DoctorDashboard = async () => {
   const user = await currentUser();
 
+  // Add status/role check
+  const status = user?.publicMetadata?.status;
+  const role = user?.publicMetadata?.role;
+  if (role === 'doctor' && status !== 'approved') {
+    redirect('/doctor-registration/pending');
+  }
+
   const {
     totalPatient,
     totalAppointment,

@@ -54,3 +54,28 @@ export function useBreakpoint() {
 
   return breakpoint
 }
+
+export function useMediaQuery(query: string) {
+  const [matches, setMatches] = React.useState(false)
+
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia(query)
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setMatches(e.matches)
+    }
+    
+    // Set initial value
+    setMatches(mediaQuery.matches)
+    
+    // Add event listener for subsequent changes
+    mediaQuery.addEventListener('change', handleChange)
+    
+    // Clean up
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange)
+    }
+  }, [query])
+
+  return matches
+}

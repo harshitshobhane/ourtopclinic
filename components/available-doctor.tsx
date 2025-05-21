@@ -45,17 +45,17 @@ export const availableDays = ({ data }: { data: Days[] }) => {
 };
 export const AvailableDoctors = async ({ data }: DataProps) => {
   return (
-    <div className="relative bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-emerald-100 p-6 overflow-hidden">
+    <div className="relative bg-card backdrop-blur-xl rounded-2xl shadow-xl border border-border p-6 overflow-hidden">
       {/* Gradient accent bar */}
-      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-400 to-blue-400 rounded-t-2xl z-10" />
+      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-accent rounded-t-2xl z-10" />
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">Available Doctors</h1>
+        <h1 className="text-2xl font-extrabold text-foreground tracking-tight">Available Doctors</h1>
         {(await checkRole("ADMIN")) && (
           <Button
             asChild
             variant={"outline"}
             disabled={data?.length === 0}
-            className="disabled:cursor-not-allowed disabled:text-gray-200 border-emerald-200 text-emerald-700 font-semibold hover:bg-emerald-50 flex items-center gap-2"
+            className="disabled:cursor-not-allowed disabled:text-muted-foreground border-border text-primary font-semibold hover:bg-primary/10 flex items-center gap-2"
           >
             <Link href="/record/doctors/list">View all</Link>
           </Button>
@@ -65,22 +65,21 @@ export const AvailableDoctors = async ({ data }: DataProps) => {
         {data?.map((doc, id) => (
           <Card
             key={id}
-            className=" border-none  w-full md:w-[300px] min-h-28 xl:w-full p-4 flex  gap-4 odd:bg-emerald-600/5 even:bg-yellow-600/5"
+            className={`border border-border w-full md:w-[300px] min-h-28 xl:w-full p-4 flex gap-4 ${id % 2 === 0 ? 'bg-muted/50' : 'bg-muted/70'}`}
           >
             <ProfileImage
               url={doc?.img}
               name={doc?.name}
               className={`md:flex min-w-14 min-h-14 md:min-w-16 md:min-h-16`}
-              textClassName="text-2xl font-semibold text-black"
+              textClassName="text-2xl font-semibold text-foreground"
               bgColor={doc?.colorCode!}
             />
-            {/* <p>{doc.colorCode}</p> */}
             <div>
-              <h2 className="font-semibold text-lg md:text-xl">{doc?.name}</h2>
-              <p className="text-base capitalize text-gray-600">  
+              <h2 className="font-semibold text-lg md:text-xl text-foreground">{doc?.name}</h2>
+              <p className="text-base capitalize text-muted-foreground">  
                 {doc?.specialization}
               </p>
-              <p className="text-sm flex items-center">
+              <p className="text-sm flex items-center text-muted-foreground">
                   <span className="hidden lg:flex">Available Time:</span>
                 {availableDays({ data: doc?.working_days })}
               </p>

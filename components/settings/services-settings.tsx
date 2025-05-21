@@ -42,7 +42,7 @@ export const ServiceSettings = async () => {
   const renderRow = (item: Services) => (
     <tr
       key={item.id}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-slate-50"
+      className="border-b border-border even:bg-muted/50 text-sm hover:bg-muted/70"
     >
       <td className="flex items-center gap-2 md:gap-4 py-4">{item?.id}</td>
 

@@ -1,101 +1,50 @@
 import { Patient } from "@prisma/client";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card } from "../ui/card";
 import Image from "next/image";
 import { calculateAge } from "@/utils";
-import { Calendar, Home, Info, Mail, Phone } from "lucide-react";
+import { Calendar, Home, Info, Mail, Phone, Users, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
+
+const InfoRow = ({ icon, label, value }: { icon: React.ReactNode; label: string; value?: string | null }) => (
+  <div className="flex items-center gap-3 p-2 rounded-lg bg-muted/60 w-full">
+    <span className="text-primary">{icon}</span>
+    <div>
+      <div className="text-xs font-semibold text-muted-foreground">{label}</div>
+      <div className="text-base text-foreground break-all">{value || <span className='italic text-muted-foreground flex items-center gap-1'><AlertCircle className='w-4 h-4' />Not provided</span>}</div>
+    </div>
+  </div>
+);
 
 export const PatientDetailsCard = ({ data }: { data: Patient }) => {
   return (
-    <Card className="shadow-none bg-white">
-      <CardHeader>
-        <CardTitle>Patient Details</CardTitle>
-        <div className="relative size-20 xl:size-24 rounded-full overflow-hidden">
-          <Image
-            src={data.img || "/user.jpg"}
-            alt={data?.first_name}
-            width={100}
-            height={100}
-            className="rounded-full"
-          />
-        </div>
-
-        <div>
-          <h2 className="text-lg font-semibold">
-            {data?.first_name} {data?.last_name}
-          </h2>
-          <p className="text-sm text-gray-500">
-            {data?.email} - {data?.phone}
-          </p>
-          <p className="text-sm text-gray-500">
-            {data?.gender} - {calculateAge(data?.date_of_birth)}
-          </p>
-        </div>
-      </CardHeader>
-
-      <CardContent className="mt-4 space-y-4">
-        <div className="flex items-start gap-3">
-          <Calendar size={22} className="text-0gray-400" />
-          <div>
-            <p className="text-sm text-gray-500">Date of Birth</p>
-            <p className="text-base font-medium text-muted-foreground">
-              {format(new Date(data?.date_of_birth), "MMM d, yyyy")}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <Home size={22} className="text-0gray-400" />
-          <div>
-            <p className="text-sm text-gray-500">Address</p>
-            <p className="text-base font-medium text-muted-foreground">
-              {data?.address}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <Mail size={22} className="text-0gray-400" />
-          <div>
-            <p className="text-sm text-gray-500">Email</p>
-            <p className="text-base font-medium text-muted-foreground">
-              {data?.email}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <Phone size={22} className="text-0gray-400" />
-          <div>
-            <p className="text-sm text-gray-500">Phone</p>
-            <p className="text-base font-medium text-muted-foreground">
-              {data?.phone}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <Info size={22} className="text-0gray-400" />
-          <div>
-            <p className="text-sm text-gray-500">Physician</p>
-            <p className="text-base font-medium text-muted-foreground">
-              Dr Codewave, MBBS, FCPS
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <div>
-            <p className="text-sm text-gray-500">Active Conditions</p>
-            <p className="text-base font-medium text-muted-foreground">
-              {data?.medical_conditions}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3">
-          <div>
-            <p className="text-sm text-gray-500">Allergies</p>
-            <p className="text-base font-medium text-muted-foreground">
-              {data?.allergies}
-            </p>
-          </div>
-        </div>
-      </CardContent>
+    <Card className="bg-card rounded-2xl shadow border border-border p-6 flex flex-col items-center">
+      <div className="relative w-24 h-24 mb-4">
+        <Image
+          src={data.img || "/user.jpg"}
+          alt={data?.first_name}
+          fill
+          className="rounded-full border-4 border-primary/30 shadow"
+        />
+      </div>
+      <h2 className="text-xl font-bold text-foreground text-center mb-1">
+        {data?.first_name} {data?.last_name}
+      </h2>
+      <div className="flex gap-2 mb-4">
+        <span className="px-3 py-1 rounded-full bg-muted text-xs font-semibold text-primary flex items-center gap-1">
+          <Users className="w-4 h-4" /> {data.gender}
+        </span>
+        <span className="px-3 py-1 rounded-full bg-muted text-xs font-semibold text-primary flex items-center gap-1">
+          <Calendar className="w-4 h-4" /> {calculateAge(data.date_of_birth)} yrs
+        </span>
+      </div>
+      <div className="w-full grid grid-cols-1 gap-3 mt-2">
+        <InfoRow icon={<Mail className="w-4 h-4" />} label="Email" value={data.email} />
+        <InfoRow icon={<Phone className="w-4 h-4" />} label="Phone" value={data.phone} />
+        <InfoRow icon={<Home className="w-4 h-4" />} label="Address" value={data.address} />
+        <InfoRow icon={<Info className="w-4 h-4" />} label="Physician" value={"Dr Codewave, MBBS, FCPS"} />
+        <InfoRow icon={<Info className="w-4 h-4" />} label="Active Conditions" value={data.medical_conditions} />
+        <InfoRow icon={<Info className="w-4 h-4" />} label="Allergies" value={data.allergies} />
+      </div>
     </Card>
   );
 };

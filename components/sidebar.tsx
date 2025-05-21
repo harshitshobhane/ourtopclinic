@@ -31,7 +31,7 @@ const ACCESS_LEVELS_ALL = [
 ];
 
 const SidebarIcon = ({ icon: Icon }: { icon: LucideIcon }) => {
-  return <Icon className="size-5 text-emerald-600" />;
+  return <Icon className="size-5 text-primary" />;
 };
 
 export const Sidebar = async () => {
@@ -43,7 +43,7 @@ export const Sidebar = async () => {
       links: [
         {
           name: "Dashboard",
-          href: "/",
+          href: `/${(role || 'user').toLowerCase()}`,
           access: ACCESS_LEVELS_ALL,
           icon: LayoutDashboard,
         },
@@ -130,7 +130,7 @@ export const Sidebar = async () => {
 
     {
       label: "E-Orders",
-      access: ["admin", "doctor"],
+      access: ["admin", "doctor","patient"],
       links: [
         {
           name: "Eprescription",
@@ -141,7 +141,7 @@ export const Sidebar = async () => {
       {
         name: "E-Lab",
         href: "/Elabs",
-        access: ["admin", "doctor"],
+        access: ["admin", "patient"],
         icon: FlaskConical, 
       },
       {
@@ -157,12 +157,6 @@ export const Sidebar = async () => {
           href: "/messages",
           access: ACCESS_LEVELS_ALL,
           icon: MessageCircle,
-        },
-        {
-          name: "Notifications",
-          href: "/notifications",
-          access: ACCESS_LEVELS_ALL,
-          icon: Bell,
         },
         {
           name: "Audit Logs",
@@ -181,9 +175,9 @@ export const Sidebar = async () => {
   ];
 
   return (
-    <div className="w-full h-full flex flex-col justify-between bg-white/80 backdrop-blur-sm border-r border-emerald-50 relative group overflow-hidden will-change-transform">
+    <div className="w-full h-full flex flex-col justify-between bg-background backdrop-blur-sm border-r border-border relative group overflow-hidden will-change-transform">
       {/* Animated border right */}
-      <div className="absolute right-0 top-0 h-full w-[2px] bg-gradient-to-b from-transparent via-emerald-400/50 to-transparent transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 will-change-transform"></div>
+      <div className="absolute right-0 top-0 h-full w-[2px] bg-gradient-to-b from-transparent via-primary/50 to-transparent transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 will-change-transform"></div>
 
       <div className="p-4">
         <div className="flex flex-col items-center lg:items-start gap-3 mb-8 group/logo">
@@ -196,7 +190,7 @@ export const Sidebar = async () => {
               className="rounded-full object-contain"
               priority
             />
-            <span className="hidden lg:inline-block font-bold text-lg tracking-tight font-sans whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 will-change-opacity bg-gradient-to-r from-[#b98d7b] to-[#4eb6b1] bg-clip-text text-transparent" style={{letterSpacing: '0.5px'}}>
+            <span className="hidden lg:inline-block font-bold text-lg tracking-tight font-sans whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 will-change-opacity gradient-text" style={{letterSpacing: '0.5px'}}>
               OurTopClinic
             </span>
           </Link>
@@ -204,21 +198,21 @@ export const Sidebar = async () => {
 
         <div className="space-y-6">
           {SIDEBAR_LINKS.map((el) => {
-            if (el.access && !el.access.includes(role.toLowerCase())) return null;
+            if (el.access && !el.access.includes((role || 'user').toLowerCase())) return null;
             return (
             <div key={el.label} className="space-y-1">
-              <span className="hidden lg:block text-xs font-semibold font-sans tracking-wider text-emerald-600 uppercase px-2 animate-fadeIn opacity-0 group-hover:opacity-100 transition-opacity duration-200 will-change-opacity">
+              <span className="hidden lg:block text-xs font-semibold font-sans tracking-wider text-primary uppercase px-2 animate-fadeIn opacity-0 group-hover:opacity-100 transition-opacity duration-200 will-change-opacity">
                 {el.label}
               </span>
 
               <div className="space-y-1">
                 {el.links.map((link) => {
                     if (!link.access) return null;
-                  if (link.access.includes(role.toLowerCase())) {
+                  if (link.access.includes((role || 'user').toLowerCase())) {
                     return (
                       <Link
                         href={link.href}
-                        className="flex items-center gap-3 px-3 py-2 text-gray-600 rounded-lg hover:bg-emerald-50/50 hover:text-emerald-600 transition-[background,color,box-shadow] duration-200 group/link border border-transparent hover:border-emerald-100 hover:shadow-sm will-change-opacity"
+                        className="flex items-center gap-3 px-3 py-2 text-foreground rounded-lg hover:bg-secondary/50 hover:text-primary transition-[background,color,box-shadow] duration-200 group/link border border-transparent hover:border-primary/20 hover:shadow-sm will-change-opacity"
                         key={link.name}
                       >
                         <div className="group-hover/link:scale-110 transition-transform duration-200 will-change-transform">
@@ -238,7 +232,7 @@ export const Sidebar = async () => {
         </div>
       </div>
 
-      <div className="p-4 border-t border-emerald-50">
+      <div className="p-4 border-t border-border">
         <LogoutButton />
       </div>
     </div>

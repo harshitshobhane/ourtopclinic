@@ -1,10 +1,13 @@
 "use client";
 
 import { useAuth, UserButton } from "@clerk/nextjs";
-import { Bell, Search } from "lucide-react";
+import { Bell, Link, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { Notification, NotificationItem } from "./notification";
+import { ThemeToggle } from "./ThemeToggle";
+import CartDropdown from "./elab/CartDropdown";
+import { motion } from "framer-motion";
 
 export const Navbar = () => {
   const user = useAuth();
@@ -45,7 +48,7 @@ export const Navbar = () => {
   const path = formatPathName();
 
   return (
-    <div className="h-16 px-6 flex items-center justify-between bg-white/80 backdrop-blur-sm border-b border-emerald-50 relative group">
+    <div className="h-16 px-6 flex items-center justify-between bg-background text-foreground backdrop-blur-sm border-b border-border relative group">
       {/* Animated border bottom */}
       <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
 
@@ -54,18 +57,23 @@ export const Navbar = () => {
           <h1 className="text-xl font-bold tracking-tight font-sans bg-gradient-to-r from-emerald-600 to-teal-700 bg-clip-text text-transparent capitalize animate-gradient">
             {path || "Overview"}
           </h1>
-          <div className="h-6 w-[1px] bg-gradient-to-b from-emerald-100 to-transparent"></div>
-          {/* <p className="text-sm text-emerald-600 animate-fadeIn font-sans font-medium tracking-tight">Welcome back!</p> */}
         </div>
       </div>
+  
+      <div className="flex items-center gap-3">
 
-      <div className="flex items-center gap-4">
-        {/* Notification dropdown */}
-        <Notification notifications={notifications} onClear={handleClearNotifications} />
-
+        {/* Theme Toggle */}
+        <div className="flex items-center">
+          <div className="w-10 h-10 flex items-center justify-center rounded-full border border-border bg-card shadow-sm hover:border-primary/40 transition">
+            <ThemeToggle />
+          </div>
+        </div>
+        {/* User Button */}
         {user?.userId && (
-          <div className="hover:bg-emerald-50/50 p-1 rounded-lg transition-all duration-300 border border-emerald-100 hover:border-emerald-200 hover:shadow-sm group/user">
-            <UserButton afterSignOutUrl="/" />
+          <div className="flex items-center">
+            <div className="w-10 h-10 rounded-full border border-border bg-card shadow-sm hover:border-primary/40 transition flex items-center justify-center">
+              <UserButton afterSignOutUrl="/" />
+            </div>
           </div>
         )}
       </div>

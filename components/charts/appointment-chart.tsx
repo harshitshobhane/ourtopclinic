@@ -36,22 +36,22 @@ export const AppointmentChart = ({ data }: DataProps) => {
   }, []);
 
   return (
-    <div className="relative bg-white/70 backdrop-blur-xl rounded-2xl shadow-xl border border-emerald-100 p-2 sm:p-6 h-full overflow-hidden w-full">
+    <div className="relative bg-card rounded-2xl shadow-xl border border-border p-2 sm:p-6 h-full overflow-hidden w-full">
       {/* Animated Gradient accent bar */}
-      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-400 to-blue-400 rounded-t-2xl z-10 animate-shimmer" />
+      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-accent rounded-t-2xl z-10 animate-shimmer" />
       <div className="flex items-center gap-3 mb-2">
         <span className="relative flex items-center justify-center">
-          <span className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-400/40 to-blue-400/30 blur-md scale-110 z-0 animate-pulse" />
-          <span className="bg-emerald-100 text-emerald-600 rounded-full p-2 shadow-sm relative z-10">
+          <span className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/40 to-accent/30 blur-md scale-110 z-0 animate-pulse" />
+          <span className="bg-primary/10 text-primary rounded-full p-2 shadow-sm relative z-10">
             <BarChart2 className="w-5 h-5 sm:w-6 sm:h-6 group-hover:animate-bounce" />
           </span>
         </span>
         <div>
-          <h1 className="text-base sm:text-2xl font-extrabold text-gray-900 tracking-tight">Appointments</h1>
-          <p className="text-xs sm:text-sm text-gray-500 font-medium mt-0.5">Monthly Overview</p>
+          <h1 className="text-base sm:text-2xl font-extrabold text-foreground tracking-tight">Appointments</h1>
+          <p className="text-xs sm:text-sm text-muted-foreground font-medium mt-0.5">Monthly Overview</p>
         </div>
       </div>
-      <div className="rounded-xl bg-gradient-to-br from-white/90 via-emerald-50 to-blue-50 p-2 sm:p-4 shadow-inner w-full">
+      <div className="rounded-xl bg-muted p-2 sm:p-4 shadow-inner w-full">
         <ResponsiveContainer width="100%" height={chartHeight}>
           <AreaChart data={data}>
             <defs>
@@ -64,13 +64,13 @@ export const AppointmentChart = ({ data }: DataProps) => {
                 <stop offset="95%" stopColor="#10b981" stopOpacity={0.1}/>
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
-            <XAxis dataKey="name" axisLine={false} tick={{ fill: "#9ca3af", fontWeight: 500 }} tickLine={false} />
-            <YAxis axisLine={false} tick={{ fill: "#9ca3af", fontWeight: 500 }} tickLine={false} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" />
+            <XAxis dataKey="name" axisLine={false} tick={{ fill: "var(--foreground)", fontWeight: 500 }} tickLine={false} />
+            <YAxis axisLine={false} tick={{ fill: "var(--foreground)", fontWeight: 500 }} tickLine={false} />
           <Tooltip
-              contentStyle={{ borderRadius: "14px", borderColor: "#fff", background: "rgba(255,255,255,0.95)", boxShadow: "0 4px 24px 0 rgba(16,185,129,0.12)" }}
+              contentStyle={{ borderRadius: "14px", borderColor: "var(--border)", background: "var(--card)", boxShadow: "0 4px 24px 0 rgba(16,185,129,0.12)" }}
               itemStyle={{ fontWeight: 600, color: "#2563eb" }}
-              labelStyle={{ color: "#0f172a", fontWeight: 700 }}
+              labelStyle={{ color: "var(--foreground)", fontWeight: 700 }}
           />
           <Legend
             align="left"
@@ -81,7 +81,7 @@ export const AppointmentChart = ({ data }: DataProps) => {
                 paddingBottom: "20px",
               textTransform: "capitalize",
                 fontWeight: 700,
-                color: "#2563eb",
+                color: "var(--primary)",
                 fontSize: "1rem",
                 letterSpacing: "0.01em",
             }}

@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { Separator } from "../ui/separator";
 import { checkRole } from "@/utils/roles";
 import { AddVitalSigns } from "../dialogs/add-vital-signs";
+import { HeartPulse } from "lucide-react";
 
 interface VitalSignsProps {
   id: number | string;
@@ -44,10 +45,12 @@ export const VitalSigns = async ({
 
   return (
     <section id="vital-signs">
-      <Card>
-        <CardHeader className="flex flex-row justify-between items-center">
-          <CardTitle>Vital Signs</CardTitle>
-
+      <Card className="bg-card rounded-2xl shadow border border-border">
+        <CardHeader className="flex flex-row justify-between items-center gap-2">
+          <div className="flex items-center gap-2">
+            <HeartPulse className="w-5 h-5 text-primary" />
+            <CardTitle className="text-lg font-bold text-foreground">Vital Signs</CardTitle>
+          </div>
           {!isPatient && (
             <AddVitalSigns
               key={new Date().getTime()}
@@ -58,14 +61,12 @@ export const VitalSigns = async ({
             />
           )}
         </CardHeader>
-
         <CardContent className="space-y-4">
           {vitals?.map((el) => {
             const { bmi, status, colorCode } = calculateBMI(
               el.weight || 0,
               el.height || 0
             );
-
             return (
               <div className="space-y-4" key={el?.id}>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -79,14 +80,12 @@ export const VitalSigns = async ({
                   />
                   <ItemCard label="Heart Rate" value={`${el?.heartRate} bpm`} />
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <ItemCard label="Weight" value={`${el?.weight} kg`} />
                   <ItemCard label="Height" value={`${el?.height} cm`} />
-
                   <div className="w-full">
                     <div className="flex gap-x-2 items-center">
-                      <p className="text-lg xl:text-xl font-medium">{bmi}</p>
+                      <p className="text-lg xl:text-xl font-medium text-foreground">{bmi}</p>
                       <span
                         className="text-sm font-medium"
                         style={{ color: colorCode }}
@@ -96,7 +95,6 @@ export const VitalSigns = async ({
                     </div>
                   </div>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <ItemCard
                     label="Respiratory Rate"

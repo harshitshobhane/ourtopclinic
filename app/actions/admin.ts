@@ -65,18 +65,15 @@ export async function createNewDoctor(data: any) {
       error: false,
     };
   } catch (error: any) {
-    // Log the full error object for debugging
-    console.log("Clerk error details:", error);
-
-    // Try to extract a helpful message for the toast
-    let message = "Something went wrong";
-    if (error && typeof error === 'object' && 'errors' in error && Array.isArray(error.errors) && error.errors.length > 0) {
-      message = error.errors.map((e: any) => e.message).join("; ");
-    } else if (error && typeof error === 'object' && 'message' in error && error.message) {
-      message = error.message;
+    console.error("Full error object:", error);
+    if (error && error.errors) {
+      try {
+        console.error("Clerk errors:", JSON.stringify(error.errors, null, 2));
+      } catch (e) {
+        console.error("Clerk errors (raw):", error.errors);
+      }
     }
-
-    return { error: true, success: false, message };
+    return { success: false, error: true, msg: error?.message || (error.errors && JSON.stringify(error.errors)) };
   }
 }
 

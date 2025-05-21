@@ -20,12 +20,12 @@ export const Table = ({
   return (
     <table className={
       (tableClassName ? tableClassName + " " : "") +
-      "w-full mt-4 bg-white/60 backdrop-blur-xl rounded-2xl shadow-lg border border-emerald-100 overflow-hidden"
+      "w-full mt-4 bg-card rounded-2xl shadow-lg border border-border overflow-hidden"
     }>
       <thead>
         <tr className={
           (headerClassName ? headerClassName + " " : "") +
-          "bg-gradient-to-r from-emerald-50 to-white text-gray-800 text-base font-bold"
+          "bg-muted text-foreground text-base font-bold"
         }>
           {columns.map(({ header, key, className }) => (
             <th key={key} className={"py-4 px-4 " + (className || "")}>{header}</th>
@@ -35,7 +35,7 @@ export const Table = ({
       <tbody>
         {data?.length < 1 && (
           <tr>
-            <td className="text-gray-400 text-base py-10 text-center" colSpan={columns.length}>
+            <td className="text-muted-foreground text-base py-10 text-center" colSpan={columns.length}>
               No Data Found
             </td>
           </tr>

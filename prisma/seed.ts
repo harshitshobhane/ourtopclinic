@@ -60,7 +60,6 @@ async function seed() {
         email: faker.internet.email(),
         height: parseFloat(faker.number.float({ min: 150, max: 200 }).toFixed(2)),
         weight: parseFloat(faker.number.float({ min: 45, max: 120 }).toFixed(2)),
-        marital_status: i % 3 === 0 ? "Married" : "Single",
         address: faker.address.streetAddress(),
         city: faker.address.city(),
         state: faker.address.state(),
@@ -76,7 +75,8 @@ async function seed() {
         medical_consent: true,
         colorCode: generateRandomColor(),
         preferred_contact_method: "Phone",
-        preferred_appointment_type: "In-person",
+        preferred_appointment_type: "Both",
+        marital_status: "single",
       },
     });
     patients.push(patient);

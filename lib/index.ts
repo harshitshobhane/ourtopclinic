@@ -4,15 +4,7 @@ export const GENDER = [
     { label: "Other", value: "OTHER" },
     { label: "Prefer not to say", value: "PREFER_NOT_TO_SAY" },
   ];
-  
-  export const MARITAL_STATUS = [
-    { label: "Single", value: "single" },
-    { label: "Married", value: "married" },
-    { label: "Divorced", value: "divorced" },
-    { label: "Widowed", value: "widowed" },
-    { label: "Separated", value: "separated" },
-  ];
-  
+
   export const RELATION = [
     { value: "mother", label: "Mother" },
     { value: "father", label: "Father" },

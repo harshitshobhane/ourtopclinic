@@ -28,57 +28,48 @@ export const StatCard = ({
   iconClassName,
   link,
 }: CardProps) => {
-  // Accent color and gradient based on card type
-  let accent = "from-blue-400 to-blue-600 border-blue-200";
-  if (title.toLowerCase().includes("cancel")) accent = "from-rose-400 to-rose-600 border-rose-200";
-  if (title.toLowerCase().includes("pending")) accent = "from-yellow-400 to-yellow-600 border-yellow-200";
-  if (title.toLowerCase().includes("complete")) accent = "from-emerald-400 to-emerald-600 border-emerald-200";
+  // Accent color and icon color based on card type
+  let accent = "text-blue-600 border-blue-400";
+  if (title.toLowerCase().includes("cancel")) accent = "text-rose-600 border-rose-400";
+  if (title.toLowerCase().includes("pending")) accent = "text-yellow-600 border-yellow-400";
+  if (title.toLowerCase().includes("complete")) accent = "text-emerald-600 border-emerald-400";
 
   return (
     <Card
       className={cn(
-        `relative w-full md:w-[330px] 2xl:w-[250px] rounded-3xl border-none shadow-2xl bg-white/60 backdrop-blur-xl overflow-hidden transition-all duration-300 group
-        before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] before:from-white/40 before:to-transparent before:opacity-60 before:pointer-events-none
-        hover:shadow-emerald-200/40 hover:scale-[1.04]`,
+        `relative w-full md:w-[330px] 2xl:w-[250px] rounded-xl border border-border bg-card shadow-sm p-4 flex flex-col gap-3 transition-all duration-300 group hover:shadow-md hover:scale-[1.03]`,
         className
       )}
     >
-      {/* Gradient accent bar */}
-      <div className={`absolute top-0 left-0 w-full h-1.5 rounded-t-3xl bg-gradient-to-r ${accent} z-10`} />
-      <CardHeader className="flex flex-row items-center justify-between py-4 capitalize bg-transparent">
-        <h3 className="font-semibold text-lg text-gray-800 tracking-tight drop-shadow-sm">{title}</h3>
+      <CardHeader className="flex flex-row items-center justify-between py-2 px-0 capitalize bg-transparent">
+        <h3 className="font-semibold text-base text-foreground tracking-tight">{title}</h3>
         <Button
           asChild
           size="sm"
           variant="ghost"
-          className="font-normal text-xs bg-transparent p-2 h-7 hover:underline text-gray-500 hover:text-primary"
+          className="font-normal text-xs bg-transparent p-2 h-7 hover:underline text-muted-foreground hover:text-primary"
         >
           <Link href={link}>See Details</Link>
         </Button>
       </CardHeader>
 
-      <CardContent>
-        <div className="flex items-center gap-5 mt-2">
-          {/* Animated, gradient ring icon */}
-          <div
-            className={cn(
-              `relative w-16 h-16 flex items-center justify-center rounded-full bg-white/30 border-2 border-white shadow-lg
-              before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-br before:${accent} before:opacity-80 before:z-0
-              group-hover:scale-110 group-hover:shadow-xl transition-transform duration-300`,
-              iconClassName
-            )}
-            style={{ boxShadow: '0 4px 24px 0 rgba(0,0,0,0.08)' }}
-          >
-            <span className="relative z-10 group-hover:animate-pulse">
+      <CardContent className="flex items-center gap-4 px-0 py-2">
+        {/* Minimal icon with accent border */}
+        <div
+          className={cn(
+            `flex items-center justify-center w-12 h-12 rounded-full border-2 bg-background ${accent}`,
+            iconClassName
+          )}
+        >
+          <span className="text-2xl">
             <CardIcon icon={icon} />
-            </span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <h2 className="text-4xl font-extrabold text-gray-900 drop-shadow-sm tracking-tight">
-              {typeof value === 'number' ? formatNumber(value) : value}
-            </h2>
-            <span className="text-xs text-gray-500 font-medium leading-tight">{note}</span>
-          </div>
+          </span>
+        </div>
+        <div className="flex flex-col gap-0.5">
+          <h2 className="text-2xl font-bold text-foreground">
+            {typeof value === 'number' ? formatNumber(value) : value}
+          </h2>
+          <span className="text-xs text-muted-foreground font-medium leading-tight">{note}</span>
         </div>
       </CardContent>
     </Card>

@@ -52,19 +52,33 @@ export const CustomInput = ({
                 type={inputType}
                 placeholder={placeholder}
                 {...field}
-                value={field.value || ""}
+                value={field.value ?? ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (inputType === "number") {
+                    field.onChange(value === "" ? "" : Number(value));
+                  } else {
+                    field.onChange(value);
+                  }
+                }}
               />
             </FormControl>
           )}
           {type === "select" && (
             <FormControl>
               <Select
-                onValueChange={field.onChange}
+                onValueChange={(value) => {
+                  console.log(`Select value changed for ${name}:`, value);
+                  field.onChange(value);
+                }}
                 defaultValue={field.value}
+                value={field.value}
               >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder={placeholder} />
-                </SelectTrigger>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder={placeholder} />
+                  </SelectTrigger>
+                </FormControl>
                 <SelectContent>
                   {selectList?.map((item) => (
                     <SelectItem key={item.value} value={item.value}>
@@ -79,8 +93,11 @@ export const CustomInput = ({
             <div className="flex items-start gap-2">
               <FormControl>
                 <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
+                  checked={field.value ?? false}
+                  onCheckedChange={(checked) => {
+                    console.log(`Checkbox value changed for ${name}:`, checked);
+                    field.onChange(checked);
+                  }}
                 />
               </FormControl>
               <div>
@@ -95,7 +112,10 @@ export const CustomInput = ({
             <FormControl>
               <DatePicker
                 selected={field.value ? new Date(field.value) : null}
-                onChange={field.onChange}
+                onChange={(date) => {
+                  console.log(`Date value changed for ${name}:`, date);
+                  field.onChange(date);
+                }}
                 dateFormat="dd-MM-yyyy"
                 placeholderText={placeholder}
                 className="w-full rounded-lg border border-emerald-200 bg-white px-3 py-2 text-base shadow-xs focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
@@ -104,6 +124,7 @@ export const CustomInput = ({
                 dropdownMode="select"
                 maxDate={new Date()}
                 isClearable
+                onBlur={field.onBlur}
               />
             </FormControl>
           )}

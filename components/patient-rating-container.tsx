@@ -1,23 +1,52 @@
-import db from "@/lib/db";
-import { auth } from "@clerk/nextjs/server";
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { RatingList } from "./rating-list";
 
-export const PatientRatingContainer = async ({ id }: { id?: string }) => {
-  const { userId } = await auth();
+export const PatientRatingContainer = ({ id }: { id?: string }) => {
+  const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const data = await db.rating.findMany({
-    take: 10,
+  useEffect(() => {
+    const fetchRatings = async () => {
+      try {
+        const response = await fetch(`/api/ratings?patientId=${id}`);
+        const result = await response.json();
+        if (result.success) {
+          setData(result.data);
+        }
+      } catch (error) {
+        console.error('Error fetching ratings:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    where: { patient_id: id ? id : userId! },
-    include: { patient: { select: { last_name: true, first_name: true } } },
-    orderBy: { created_at: "desc" },
-  });
+    fetchRatings();
+  }, [id]);
 
-  if (!data) return null;
+  if (loading) {
+    return (
+      <div className="bg-card border border-border rounded-xl p-4">
+        <div className="h-[400px] flex items-center justify-center text-muted-foreground">
+          Loading ratings...
+        </div>
+      </div>
+    );
+  }
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="bg-card border border-border rounded-xl p-4">
+        <div className="h-[400px] flex items-center justify-center text-muted-foreground">
+          No ratings found
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div>
+    <div className="bg-card border border-border rounded-xl p-4">
       <RatingList data={data} />
     </div>
   );

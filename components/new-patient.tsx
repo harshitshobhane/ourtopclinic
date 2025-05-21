@@ -3,7 +3,7 @@
 import { useUser } from "@clerk/nextjs";
 // import { Patient } from "@prisma/client";
 import { Phone } from "lucide-react"; 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import {
   Card,
@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { PatientFormSchema } from "@/lib/schema";
 import { z } from "zod";
 import { CustomInput } from "./custom-input";
-import { GENDER, MARITAL_STATUS, RELATION } from "@/lib";
+import { GENDER, RELATION } from "@/lib";
 import { Button } from "./ui/button";
 import { createNewPatient, updatePatient } from "@/app/actions/patient";
 import { toast } from "sonner";
@@ -32,6 +32,15 @@ export const NewPatient = ({ data, type }: DataProps) => {
   const [loading, setLoading] = useState(false);
   const [imgURL, setImgURL] = useState<any>();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const patientId = type === "create" ? "new-patient" : (data?.id || user?.id);
+
+  console.log("NewPatient component rendered with:", {
+    patientId,
+    type,
+    hasData: !!data,
+    userId: user?.id
+  });
 
   const userData = {
     first_name: user?.firstName || "",
@@ -48,7 +57,6 @@ export const NewPatient = ({ data, type }: DataProps) => {
       address: "",
       date_of_birth: new Date(),
       gender: "PREFER_NOT_TO_SAY",
-      marital_status: "single",
       city: "",
       state: "",
       zip_code: "",
@@ -65,89 +73,162 @@ export const NewPatient = ({ data, type }: DataProps) => {
       insurance_number: "",
       insurance_provider: "",
       medical_history: "",
+      medical_consent: false,
+      privacy_consent: false,
+      service_consent: false,
     },
   });
 
-  const onSubmit = async (values: any) => {
-    console.log("SUBMIT", values);
-    setLoading(true);
+  const onSubmit = async (data: z.infer<typeof PatientFormSchema>) => {
+    console.log("=== Form Submission Debug ===");
+    console.log("Raw form data:", JSON.stringify(data, null, 2));
+    console.log("Medical fields in submission:", {
+      conditions: data.medical_conditions,
+      history: data.medical_history,
+      type: typeof data.medical_conditions
+    });
 
-    const res =
-      type === "create"
-        ? await createNewPatient(values, userId!)
-        : await updatePatient(values, userId!);
+    try {
+      setLoading(true);
 
-    setLoading(false);
+      let response;
+      if (type === "create") {
+        response = await createNewPatient(data, userId!);
+      } else if (type === "update" && patientId) {
+        response = await updatePatient(data, patientId);
+      }
 
-    if (res?.success) {
-      toast.success(res.msg);
-      form.reset();
-      router.push("/patient");
-    } else {
-      console.log(res);
-      toast.error(res?.msg || "Failed to create patient");
+      if (response?.error) {
+        toast.error(response.error);
+        return;
+      }
+
+      toast.success(type === "create" ? "Patient created successfully!" : "Patient updated successfully!");
+      
+      // Wait a moment for the role to be set in Clerk
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Force a hard refresh to ensure the new role is picked up
+      window.location.href = "/patient";
+    } catch (error) {
+      console.error("Form submission error:", error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     if (type === "create") {
-      userData && form.reset({ ...userData });
-    } else if (type === "update") {
-      data &&
-        form.reset({
-          first_name: data.first_name,
-          last_name: data.last_name,
-          email: data.email,
-          phone: data.phone,
-          date_of_birth: new Date(data.date_of_birth),
-          gender: data.gender,
-          marital_status: data.marital_status as
-            | "married"
-            | "single"
-            | "divorced"
-            | "widowed"
-            | "separated",
-          address: data.address,
-          city: data.city,
-          state: data.state,
-          zip_code: data.zip_code,
-          height: data.height,
-          weight: data.weight,
-          preferred_contact_method: data.preferred_contact_method,
-          preferred_appointment_type: data.preferred_appointment_type,
-          emergency_contact_name: data.emergency_contact_name,
-          emergency_contact_number: data.emergency_contact_number,
-          relation: data.relation as
-            | "mother"
-            | "father"
-            | "husband"
-            | "wife"
-            | "other",
-          blood_group: data?.blood_group || "",
-          allergies: data?.allergies || "",
-          medical_conditions: data?.medical_conditions || "",
-          medical_history: data?.medical_history || "",
-          insurance_number: data.insurance_number || "",
-          insurance_provider: data.insurance_provider || "",
-          medical_consent: data.medical_consent,
-          privacy_consent: data.privacy_consent,
-          service_consent: data.service_consent,
-        });
+      userData && form.reset({ 
+        ...userData,
+        gender: "PREFER_NOT_TO_SAY",
+        preferred_contact_method: "",
+        preferred_appointment_type: "",
+        relation: "other"
+      });
+    } else if (type === "update" && data) {
+      console.log("=== Form Update Debug ===");
+      console.log("Received data:", JSON.stringify(data, null, 2));
+      console.log("Data type:", typeof data);
+      console.log("Data keys:", Object.keys(data));
+      console.log("Form fields:", {
+        gender: data.gender,
+        preferred_contact_method: data.preferred_contact_method,
+        preferred_appointment_type: data.preferred_appointment_type,
+        type: typeof data.gender
+      });
+      
+      // Parse the date string into a Date object
+      let dateOfBirth;
+      try {
+        dateOfBirth = data.date_of_birth ? new Date(data.date_of_birth) : new Date();
+        if (isNaN(dateOfBirth.getTime())) {
+          console.warn("Invalid date_of_birth, using current date");
+          dateOfBirth = new Date();
+        }
+      } catch (error) {
+        console.warn("Error parsing date_of_birth, using current date");
+        dateOfBirth = new Date();
+      }
+
+      const formData = {
+        first_name: data.first_name || "",
+        last_name: data.last_name || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        date_of_birth: dateOfBirth,
+        gender: data.gender || "PREFER_NOT_TO_SAY",
+        address: data.address || "",
+        city: data.city || "",
+        state: data.state || "",
+        zip_code: data.zip_code || "",
+        height: Number(data.height) || 0,
+        weight: Number(data.weight) || 0,
+        preferred_contact_method: data.preferred_contact_method || "Email",
+        preferred_appointment_type: data.preferred_appointment_type || "In-person",
+        emergency_contact_name: data.emergency_contact_name || "",
+        emergency_contact_number: data.emergency_contact_number || "",
+        relation: data.relation || "other",
+        blood_group: data.blood_group || "",
+        allergies: data.allergies || "",
+        medical_conditions: data.medical_conditions || "",
+        medical_history: data.medical_history || "",
+        insurance_number: data.insurance_number || "",
+        insurance_provider: data.insurance_provider || "",
+        medical_consent: Boolean(data.medical_consent),
+        privacy_consent: Boolean(data.privacy_consent),
+        service_consent: Boolean(data.service_consent),
+        img: data.img || "",
+      };
+      
+      console.log("Form data being set:", JSON.stringify(formData, null, 2));
+      console.log("Form fields in form data:", {
+        gender: formData.gender,
+        preferred_contact_method: formData.preferred_contact_method,
+        preferred_appointment_type: formData.preferred_appointment_type
+      });
+      form.reset(formData);
     }
-  }, [data, type, user]);
+  }, [data, type, user, form]);
+
+  // Add this debug effect to monitor form values
+  useEffect(() => {
+    const subscription = form.watch((value: any) => {
+      console.log("Form values changed:", value);
+      console.log("Form fields in form:", {
+        gender: value.gender,
+        preferred_contact_method: value.preferred_contact_method,
+        preferred_appointment_type: value.preferred_appointment_type
+      });
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   return (
     <Card className="max-w-5xl w-full mx-auto p-0 shadow-2xl rounded-3xl border border-emerald-100 bg-white/95">
       <CardHeader className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-t-3xl border-b border-emerald-100 p-10">
-        <CardTitle className="text-3xl font-bold tracking-tight text-emerald-800">Patient Registration</CardTitle>
+        <CardTitle className="text-3xl font-bold tracking-tight text-emerald-800">
+          {type === "create" ? "Patient Registration" : "Update Patient Information"}
+        </CardTitle>
         <CardDescription className="text-lg text-gray-500 mt-2">
-          Please provide all the information below to help us understand you better and provide quality service.
+          {type === "create" 
+            ? "Please provide all the information below to help us understand you better and provide quality service."
+            : "Update your information to keep your profile current and accurate."}
         </CardDescription>
       </CardHeader>
 
       <CardContent className="p-10">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-14">
+          <form 
+            onSubmit={async (e) => {
+              e.preventDefault();
+              if (loading) return;
+              console.log("Form submitted");
+              await form.handleSubmit(onSubmit)(e);
+            }} 
+            className="space-y-14"
+          >
             {/* Personal Information */}
             <div>
               <h3 className="uppercase text-sm font-bold tracking-widest text-emerald-600 mb-6 flex items-center gap-2">
@@ -300,9 +381,15 @@ export const NewPatient = ({ data, type }: DataProps) => {
             <Button
               disabled={loading}
               type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                if (loading) return;
+                console.log("Button clicked");
+                form.handleSubmit(onSubmit)(e);
+              }}
               className="w-full py-4 text-xl font-bold bg-gradient-to-r from-emerald-500 to-teal-400 text-white rounded-2xl shadow-xl hover:from-emerald-600 hover:to-teal-500 transition-all"
             >
-              {type === "create" ? "Submit" : "Update"}
+              {loading ? "Updating..." : type === "create" ? "Submit" : "Update Profile"}
             </Button>
           </form>
         </Form>

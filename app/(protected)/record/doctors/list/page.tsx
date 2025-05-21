@@ -13,8 +13,9 @@ import { getAllDoctors } from "@/utils/services/doctor";
 import { Doctor } from "@prisma/client";
 import { format } from "date-fns";
 import { Users } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { SheetContent } from "@/components/ui/sheet";
+import DoctorsListToggle from "./DoctorsListToggle";
 
 const columns = [
   {
@@ -22,7 +23,7 @@ const columns = [
     key: "name",
   },
   {
-    header: "License #",
+    header: "License",
     key: "license",
     className: "hidden md:table-cell",
   },
@@ -63,25 +64,25 @@ const DoctorsList = async (props: SearchParamsProps) => {
   const renderRow = (item: Doctor) => (
     <tr
       key={item?.id}
-      className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-slate-50"
+      className="border-b border-border/40 even:bg-muted/50 text-sm hover:bg-muted/50 transition-colors"
     >
       <td className="flex items-center gap-4 p-4">
         <ProfileImage
           url={item?.img!}
           name={item?.name}
           bgColor={item?.colorCode!}
-          textClassName="text-black"
+          textClassName="text-foreground"
         />
         <div>
-          <h3 className="uppercase">{item?.name}</h3>
-          <span className="text-sm capitalize">{item?.specialization}</span>
+          <h3 className="uppercase font-medium">{item?.name}</h3>
+          <span className="text-sm text-muted-foreground capitalize">{item?.specialization}</span>
         </div>
       </td>
-      <td className="hidden md:table-cell">{item?.license_number}</td>
-      <td className="hidden md:table-cell">{item?.phone}</td>
-      <td className="hidden lg:table-cell">{item?.email}</td>
-      <td className="hidden xl:table-cell">
-        {format(item?.created_at, "yyyy-MM-dd")}
+      <td className="hidden md:table-cell text-muted-foreground">{item?.license_number}</td>
+      <td className="hidden md:table-cell text-muted-foreground">{item?.phone}</td>
+      <td className="hidden lg:table-cell text-muted-foreground">{item?.email}</td>
+      <td className="hidden xl:table-cell text-muted-foreground">
+        {item?.created_at ? format(new Date(item.created_at), "yyyy-MM-dd") : 'N/A'}
       </td>
       <td>
         <div className="flex items-center gap-2">
@@ -94,35 +95,24 @@ const DoctorsList = async (props: SearchParamsProps) => {
     </tr>
   );
 
-  return (
-    <div className="bg-white rounded-xl py-6 px-3 2xl:px-6">
+  const DoctorsListContent = (
+    <>
       <div className="flex items-center justify-between">
         <div className="hidden lg:flex items-center gap-1">
-          <Users size={20} className="text-gray-500" />
-
-          <p className="text-2xl font-semibold">{totalRecords}</p>
-          <span className="text-gray-600 text-sm xl:text-base">
-            total doctors
-          </span>
+          <Users size={20} className="text-muted-foreground" />
+          <p className="text-2xl font-semibold text-foreground">{totalRecords}</p>
+          <span className="text-muted-foreground text-sm xl:text-base">total doctors</span>
         </div>
         <div className="w-full lg:w-fit flex items-center justify-between lg:justify-start gap-2">
-          <SearchInput />
           {isAdmin && <DoctorForm />}
         </div>
       </div>
+    </>
+  );
 
-      <div className="mt-4">
-        <Table columns={columns} data={data} renderRow={renderRow} />
-
-        {totalPages && (
-          <Pagination
-            totalPages={totalPages}
-            currentPage={currentPage}
-            totalRecords={totalRecords}
-            limit={DATA_LIMIT}
-          />
-        )}
-      </div>
+  return (
+    <div className="bg-card rounded-xl py-6 px-3 2xl:px-6 border border-border/40">
+      <DoctorsListToggle allComponent={DoctorsListContent} />
     </div>
   );
 };

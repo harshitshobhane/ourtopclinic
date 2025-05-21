@@ -72,11 +72,10 @@ export const GenerateFinalBills = ({ id, total_bill }: DataProps) => {
             Generate Final Bill
           </Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="bg-card rounded-2xl border border-border shadow-xl">
           <CardHeader className="px-0">
             <DialogTitle>Patient Medical Bill</DialogTitle>
           </CardHeader>
-
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleOnSubmit)}
@@ -90,7 +89,6 @@ export const GenerateFinalBills = ({ id, total_bill }: DataProps) => {
                   </p>
                 </div>
               </div>
-
               <CustomInput
                 type="input"
                 control={form.control}
@@ -98,7 +96,6 @@ export const GenerateFinalBills = ({ id, total_bill }: DataProps) => {
                 placeholder="eg.: 5"
                 label="Discount (%)"
               />
-
               <CustomInput
                 type="input"
                 control={form.control}
@@ -107,11 +104,10 @@ export const GenerateFinalBills = ({ id, total_bill }: DataProps) => {
                 placeholder=""
                 inputType="date"
               />
-
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="bg-blue-600 w-full"
+                className="bg-primary w-full text-primary-foreground font-bold"
               >
                 Generate Bill
               </Button>

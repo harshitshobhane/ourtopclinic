@@ -5,7 +5,9 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import { Providers } from "./provider";
-import ClientThemeWrapper from "./ClientThemeWrapper"; 
+import ClientThemeWrapper from "./ClientThemeWrapper";
+import { CartProvider } from "@/components/context/CartContext";
+import { TestOrderProvider } from "@/components/context/TestOrderContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +30,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
           <Providers>
-            <ClientThemeWrapper>
-              {children}
-            </ClientThemeWrapper>
+            <CartProvider>
+              <TestOrderProvider>
+                <ClientThemeWrapper>
+                  {children}
+                </ClientThemeWrapper>
+              </TestOrderProvider>
+            </CartProvider>
           </Providers>
           <Toaster richColors position="top-center" />
         </body>

@@ -14,9 +14,10 @@ export interface NotificationItem {
 interface NotificationProps {
   notifications: NotificationItem[];
   onClear?: () => void;
+  buttonClassName?: string;
 }
 
-export const Notification: React.FC<NotificationProps> = ({ notifications, onClear }) => {
+export const Notification: React.FC<NotificationProps> = ({ notifications, onClear, buttonClassName }) => {
   const [open, setOpen] = useState(false);
   const [dropdownContainer] = useState(() => {
     if (typeof window !== "undefined") {
@@ -87,7 +88,7 @@ export const Notification: React.FC<NotificationProps> = ({ notifications, onCle
   return (
     <div className="relative">
       <button
-        className="p-2 rounded-lg bg-emerald-50/50 text-emerald-600 border border-emerald-100 hover:bg-emerald-100/50 hover:border-emerald-200 transition-all duration-300 shadow-sm flex items-center relative"
+        className={buttonClassName ? buttonClassName : "p-2 rounded-lg bg-emerald-50/50 text-emerald-600 border border-emerald-100 hover:bg-emerald-100/50 hover:border-emerald-200 transition-all duration-300 shadow-sm flex items-center relative"}
         onClick={() => setOpen((o) => !o)}
         aria-label="Show notifications"
       >

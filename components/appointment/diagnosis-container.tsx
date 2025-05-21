@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { checkRole } from "@/utils/roles";
 import { record } from "zod";
 import { MedicalHistoryCard } from "./medical-history-card";
+import { Stethoscope } from "lucide-react";
 
 export const DiagnosisContainer = async ({
   patientId,
@@ -50,29 +51,15 @@ export const DiagnosisContainer = async ({
         </div>
       ) : (
         <section className="space-y-6">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Medical Records</CardTitle>
-
-              {!isPatient && (
-                <AddDiagnosis
-                  key={new Date().getTime()}
-                  patientId={patientId}
-                  doctorId={doctorId}
-                  appointmentId={id}
-                  medicalId={data?.id.toString() || ""}
-                />
-              )}
-            </CardHeader>
-
-            <CardContent className="space-y-8">
-              {diagnosis?.map((record, id) => (
-                <div key={record.id}>
-                  <MedicalHistoryCard record={record} index={id} />
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+          <div className="flex items-center gap-2 mb-2">
+            <Stethoscope className="w-5 h-5 text-primary" />
+            <h2 className="text-lg font-bold text-foreground">Diagnosis & Medical Records</h2>
+          </div>
+          {diagnosis?.map((record, id) => (
+            <div key={record.id} className="bg-card rounded-2xl shadow border border-border p-4">
+              <MedicalHistoryCard record={record} index={id} />
+            </div>
+          ))}
         </section>
       )}
     </div>

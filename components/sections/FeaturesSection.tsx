@@ -97,7 +97,7 @@ const FeaturesSection: React.FC = () => {
     {
       icon: <Pill className="h-6 w-6 text-white relative z-10" />,
       title: "Medication Orders",
-      description: "Order prescribed medications and get them delivered to your doorstep.",
+      description: "Enjoy doorstep delivery of prescriptions through select pharmacy partners",
       delay: 2
     },
     {
@@ -162,11 +162,6 @@ const FeaturesSection: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-16 text-center">
-          <Button className="gradient-bg button-3d text-white font-semibold py-2 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            Explore All Features
-          </Button>
-        </div>
       </div>
     </section>
   );

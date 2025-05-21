@@ -114,14 +114,14 @@ export const BillsContainer = async ({ id }: { id: string }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl p-2 2xl:p-4">
+    <div className="bg-card rounded-2xl shadow border border-border p-4">
       <div className="w-full flex flex-col md:flex-row md:items-center justify-between mb-6">
         <div className="">
-          <h1 className="font-semibold text-xl">Patient Bills</h1>
+          <h1 className="font-semibold text-xl text-foreground">Patient Bills</h1>
           <div className="hidden lg:flex items-center gap-1">
-            <ReceiptText size={20} className="text-gray-500" />
-            <p className="text-2xl font-semibold">{billData?.length}</p>
-            <span className="text-gray-600 text-sm xl:text-base">
+            <ReceiptText size={20} className="text-muted-foreground" />
+            <p className="text-2xl font-semibold text-foreground">{billData?.length}</p>
+            <span className="text-muted-foreground text-sm xl:text-base">
               total records
             </span>
           </div>
@@ -130,7 +130,6 @@ export const BillsContainer = async ({ id }: { id: string }) => {
         {((await checkRole("ADMIN")) || (await checkRole("DOCTOR"))) && (
           <div className="flex items-center mt-5 justify-end">
             <AddBills id={data?.id} appId={id} servicesData={servicesData} />
-
             <GenerateFinalBills id={data?.id} total_bill={totalBills} />
           </div>
         )}
@@ -140,37 +139,37 @@ export const BillsContainer = async ({ id }: { id: string }) => {
 
       <Separator />
 
-      <div className="flex flex-wrap lg:flex-nowrap items-center justify-between md:text-center py-2 space-y-6">
+      <div className="flex flex-wrap lg:flex-nowrap items-center justify-between md:text-center py-2 space-y-6 gap-4">
         <div className="w-[120px]">
-          <span className="text-gray-500">Total Bill</span>
-          <p className="text-xl font-semibold">
+          <span className="text-muted-foreground">Total Bill</span>
+          <p className="text-xl font-semibold text-foreground">
             {(data?.total_amount || totalBills).toFixed(2)}
           </p>
         </div>
         <div className="w-[120px]">
-          <span className="text-gray-500">Discount</span>
+          <span className="text-muted-foreground">Discount</span>
           <p className="text-xl font-semibold text-yellow-600">
             {(data?.discount || 0.0).toFixed(2)}{" "}
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-muted-foreground">
               {" "}
               ({discount?.discountPercentage?.toFixed(2) || "0.0"}%)
             </span>
           </p>
         </div>
         <div className="w-[120px]">
-          <span className="text-gray-500">Payable</span>
-          <p className="text-xl font-semibold ">
+          <span className="text-muted-foreground">Payable</span>
+          <p className="text-xl font-semibold text-foreground">
             {(discount?.finalAmount || 0.0).toFixed(2)}
           </p>
         </div>
         <div className="w-[120px]">
-          <span className="text-gray-500">Amount Paid</span>
+          <span className="text-muted-foreground">Amount Paid</span>
           <p className="text-xl font-semibold text-emerald-600">
             {(data?.amount_paid || 0.0).toFixed(2)}
           </p>
         </div>
         <div className="w-[120px]">
-          <span className="text-gray-500">Unpaid Amount</span>
+          <span className="text-muted-foreground">Unpaid Amount</span>
           <p className="text-xl font-semibold text-red-600">
             {(discount?.finalAmount! - data?.amount_paid! || 0.0).toFixed(2)}
           </p>

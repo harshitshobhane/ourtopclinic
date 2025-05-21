@@ -58,7 +58,7 @@ const AboutUs = () => {
                 About <span className="gradient-text">OurTopClinic</span>
               </h1>
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-                Transforming healthcare through innovation, compassion, and excellence since 2015.
+                Transforming healthcare through innovation, compassion, and excellence since 2023.
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 <span className="bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-medium">Patient-Centered Care</span>
@@ -84,41 +84,32 @@ const AboutUs = () => {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeInUp}
+              className="w-full h-full flex items-center justify-center"
             >
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">Our Story</h2>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
-                Founded in 2015 by a team of dedicated healthcare professionals, OurTopClinic began with a simple mission: to make quality healthcare accessible to everyone.
-              </p>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
-                What started as a small community clinic has grown into a comprehensive healthcare network, serving thousands of patients across multiple locations. Throughout our journey, we've remained committed to our core values of compassion, innovation, and excellence.
-              </p>
-              <p className="text-gray-600 dark:text-gray-300">
-                Today, we're proud to be at the forefront of healthcare innovation, combining cutting-edge technology with personalized care to create an experience that puts patients first.
-              </p>
+              <div className="flex justify-center">
+                <div className="bg-white rounded-2xl p-0">
+                  <img
+                    src="/about_us.png"
+                    alt="Compassionate care at OurTopClinic"
+                    className="object-contain w-full max-w-md rounded-2xl"
+                  />
+                </div>
+              </div>
             </motion.div>
             
-            <motion.div 
-              className="relative"
+            <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeInUp}
             >
-              <div className="aspect-video rounded-2xl overflow-hidden shadow-xl">
-                <div className="bg-gradient-to-tr from-primary/20 to-primary/5 w-full h-full flex items-center justify-center">
-                  <Building className="text-primary w-20 h-20" />
-                </div>
-              </div>
-              <div className="absolute -bottom-5 -right-5 bg-white dark:bg-gray-800 rounded-lg p-4 shadow-lg">
-                <div className="flex items-center space-x-2">
-                  <MapPin className="text-primary h-4 w-4" />
-                  <span className="font-medium">Started in Boston, MA</span>
-                </div>
-                <div className="mt-1 flex items-center space-x-2">
-                  <Calendar className="text-primary h-4 w-4" />
-                  <span className="font-medium">Est. 2015</span>
-                </div>
-              </div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">Our Story</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Founded in 2023 by a group of passionate healthcare providers, OurTopClinic was born out of frustration with the broken, impersonal, and often inaccessible healthcare system. As clinicians who have worked on the front lines, we witnessed firsthand how patients were often left behind by bureaucracy, long wait times, and insurance hurdles. We knew there had to be a better way — so we built one.
+              </p>
+              <p className="text-gray-600 dark:text-gray-300">
+                At OurTopClinic, we are on a mission to transform the way care is delivered. We believe in putting patients first, not paperwork. Our platform was designed to be intuitive, flexible, and personal — whether you are seeking a quick telehealth consultation, long-term wellness care, or support managing chronic conditions, we are here when and how you need us.
+              </p>
             </motion.div>
           </div>
         </div>
@@ -233,84 +224,7 @@ const AboutUs = () => {
         </div>
       </section>
       
-      {/* Team Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-transparent via-primary/5 to-transparent">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeInUp}
-            >
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Leadership Team</h2>
-              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Meet the dedicated professionals who lead our organization with vision and expertise.
-              </p>
-            </motion.div>
-          </div>
-          
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            {/* Team Member 1 */}
-            <motion.div 
-              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-lift"
-              variants={fadeInUp}
-            >
-              <div className="h-32 bg-gradient-to-r from-primary/20 to-primary/10 flex items-center justify-center">
-                <Users className="h-16 w-16 text-primary/30" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-bold text-lg mb-1">Dr. Sarah Johnson</h3>
-                <p className="text-primary text-sm mb-3">Chief Medical Officer</p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                  Board-certified cardiologist with over 15 years of clinical experience and a passion for preventive care.
-                </p>
-              </div>
-            </motion.div>
-            
-            {/* Team Member 2 */}
-            <motion.div 
-              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-lift"
-              variants={fadeInUp}
-            >
-              <div className="h-32 bg-gradient-to-r from-primary/20 to-primary/10 flex items-center justify-center">
-                <Users className="h-16 w-16 text-primary/30" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-bold text-lg mb-1">Michael Chen</h3>
-                <p className="text-primary text-sm mb-3">Chief Technology Officer</p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                  Technology leader with extensive experience in healthcare IT and a focus on patient-centered digital solutions.
-                </p>
-              </div>
-            </motion.div>
-            
-            {/* Team Member 3 */}
-            <motion.div 
-              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover-lift"
-              variants={fadeInUp}
-            >
-              <div className="h-32 bg-gradient-to-r from-primary/20 to-primary/10 flex items-center justify-center">
-                <Users className="h-16 w-16 text-primary/30" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-bold text-lg mb-1">Amanda Rodriguez</h3>
-                <p className="text-primary text-sm mb-3">Chief Operating Officer</p>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                  Healthcare operations expert dedicated to creating efficient systems that enhance the patient experience.
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-      
+ 
       {/* Stats Section */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
@@ -385,6 +299,8 @@ const AboutUs = () => {
           </motion.div>
         </div>
       </section>
+      
+     
       
       <FooterSection />
       <ScrollToTop />

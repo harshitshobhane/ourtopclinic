@@ -63,7 +63,7 @@ export const PaymentsContainer = async ({
     return (
       <tr
         key={item.id}
-        className="border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-slate-50"
+        className="border-b border-border even:bg-muted/50 text-sm hover:bg-muted/70"
       >
         <td className="flex items-center gap-2 md:gap-4 py-2 xl:py-4">
           #{item?.id}
@@ -99,16 +99,15 @@ export const PaymentsContainer = async ({
   };
 
   return (
-    <div className="bg-white rounded-xl p-2 md:p-4 2xl:p-6">
-      <div className="flex items-center justify-between">
+    <div className="bg-card rounded-2xl shadow border border-border p-4">
+      <div className="flex items-center justify-between mb-4">
         <div className="hidden lg:flex items-center gap-1">
-          <p className="text-2xl font-semibold">{data?.length ?? 0}</p>
-          <span className="text-gray-600 text-sm xl:text-base">
+          <p className="text-2xl font-semibold text-foreground">{data?.length ?? 0}</p>
+          <span className="text-muted-foreground text-sm xl:text-base">
             total records
           </span>
         </div>
       </div>
-
       <Table columns={columns} renderRow={renderRow} data={data} />
     </div>
   );

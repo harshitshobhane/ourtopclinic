@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import EnhancedNavbar from '@/components/navbar/EnhancedNavbar';
-import HeroSection from '@/components/sections/HeroSection';
+import HeroSection from '@/components/sections/HeroSection1';
 import HeroBackground from '@/components/hero/HeroBackground';
 import FeaturesSection from '@/components/sections/FeaturesSection';
 import StatsSection from '@/components/sections/StatsSection';
