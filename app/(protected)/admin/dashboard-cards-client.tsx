@@ -54,57 +54,45 @@ interface DashboardCardsClientProps {
   cardData: CardData[];
 }
 
-const DashboardCardsClient = ({ cardData }: DashboardCardsClientProps) => (
-  <motion.div
-    className="w-full flex flex-wrap gap-4"
-    initial="hidden"
-    animate="visible"
-    variants={{
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: 0.12,
-        },
-      },
-    }}
-  >
-    {cardData?.map((el, index) => {
-      const Icon = iconMap[el.iconKey];
-      const theme = themeMap[el.iconKey];
-      return (
-        <motion.div
-          key={index}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0 },
-          }}
-          whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }}
-          transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-          className={`relative flex-1 min-w-[220px] max-w-[270px] rounded-2xl p-6 shadow-lg bg-white ${theme.border} transition-all duration-200`}
-        >
-          <div className="flex items-center gap-4 mb-4">
-            <div className={`w-12 h-12 flex items-center justify-center rounded-full shadow-inner ${theme.iconBg}`}> 
-              {Icon && <Icon className={`w-7 h-7 ${theme.iconColor}`} />}
-            </div>
-            <div className="flex-1">
-              <div className="text-lg font-bold text-gray-900">{el.title}</div>
-            </div>
-          </div>
-          <div className="flex items-end gap-2">
-            <span className="text-4xl font-extrabold text-gray-900 drop-shadow-sm">{el.value}</span>
-          </div>
-          <div className="text-sm text-gray-500 mt-1">{el.note}</div>
-          <Link
-            href={el.link}
-            className={`absolute bottom-4 right-4 z-10 rounded-full ${theme.btn} transition-colors shadow-md p-2 group focus:outline-none focus:ring-2`}
-            aria-label={`See details for ${el.title}`}
+const DashboardCardsClient = ({ cardData }: DashboardCardsClientProps) => {
+  return (
+    <div className="w-full flex flex-wrap gap-4">
+      {cardData?.map((el, index) => {
+        const Icon = iconMap[el.iconKey];
+        const theme = themeMap[el.iconKey];
+        return (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }}
+            transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+            className={`relative flex-1 min-w-[220px] max-w-[270px] rounded-2xl p-6 shadow-lg bg-white ${theme.border} transition-all duration-200`}
           >
-            <ArrowRight className={`w-5 h-5 ${theme.btnIcon} transition-colors`} />
-          </Link>
-        </motion.div>
-      );
-    })}
-  </motion.div>
-);
+            <div className="flex items-center gap-4 mb-4">
+              <div className={`w-12 h-12 flex items-center justify-center rounded-full shadow-inner ${theme.iconBg}`}> 
+                {Icon && <Icon className={`w-7 h-7 ${theme.iconColor}`} />}
+              </div>
+              <div className="flex-1">
+                <div className="text-lg font-bold text-gray-900">{el.title}</div>
+              </div>
+            </div>
+            <div className="flex items-end gap-2">
+              <span className="text-4xl font-extrabold text-gray-900 drop-shadow-sm">{el.value}</span>
+            </div>
+            <div className="text-sm text-gray-500 mt-1">{el.note}</div>
+            <Link
+              href={el.link}
+              className={`absolute bottom-4 right-4 z-10 rounded-full ${theme.btn} transition-colors shadow-md p-2 group focus:outline-none focus:ring-2`}
+              aria-label={`See details for ${el.title}`}
+            >
+              <ArrowRight className={`w-5 h-5 ${theme.btnIcon} transition-colors`} />
+            </Link>
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+};
 
 export default DashboardCardsClient; 
