@@ -1,11 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
-    const appointmentId = params.id;
-    if (!appointmentId) {
-      return NextResponse.json({ success: false, message: "Appointment ID required" }, { status: 400 });
+    const appointmentId = parseInt(params.id);
+    if (isNaN(appointmentId)) {
+      return NextResponse.json({ success: false, message: "Invalid appointment ID" }, { status: 400 });
     }
     const appointment = await db.appointment.findUnique({
       where: { id: appointmentId },
