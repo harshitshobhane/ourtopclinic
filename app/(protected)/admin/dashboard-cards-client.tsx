@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import Link from 'next/link';
 import { Users, BriefcaseBusiness, BriefcaseMedical, User, ArrowRight } from 'lucide-react';
 
@@ -67,7 +67,7 @@ const DashboardCardsClient = ({ cardData }: DashboardCardsClientProps) => {
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)' }}
             transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-            className={`relative flex-1 min-w-[220px] max-w-[270px] rounded-2xl p-6 shadow-lg bg-white ${theme.border} transition-all duration-200`}
+            style={{ position: 'relative', flex: 1, minWidth: '220px', maxWidth: '270px', borderRadius: '1rem', padding: '1.5rem', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)', backgroundColor: 'white', borderTopWidth: '4px', borderTopColor: theme.border.split(' ')[1], transition: 'all 0.2s' }}
           >
             <div className="flex items-center gap-4 mb-4">
               <div className={`w-12 h-12 flex items-center justify-center rounded-full shadow-inner ${theme.iconBg}`}> 
