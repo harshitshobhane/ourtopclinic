@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ProfileImage } from "@/components/profile-image";
+import { ProfileImage } from "../../../../../components/profile-image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
