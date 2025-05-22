@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
+import { type NextApiRequest } from "next";
 import db from "@/lib/db";
 
+interface RouteSegmentProps {
+  params: {
+    id: string;
+  };
+}
+
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  props: RouteSegmentProps
 ): Promise<NextResponse> {
   try {
-    const appointmentId = parseInt(params.id);
+    const appointmentId = parseInt(props.params.id);
     if (isNaN(appointmentId)) {
       return NextResponse.json({ success: false, message: "Invalid appointment ID" }, { status: 400 });
     }
