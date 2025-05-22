@@ -3,10 +3,10 @@ import db from "@/lib/db";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
-    const appointmentId = parseInt(params.id);
+    const appointmentId = parseInt(context.params.id);
     if (isNaN(appointmentId)) {
       return NextResponse.json({ success: false, message: "Invalid appointment ID" }, { status: 400 });
     }
