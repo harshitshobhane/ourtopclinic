@@ -1,4 +1,3 @@
-
 /**
  * Barrel file for UI components
  * This makes it easier to import multiple components from one place in Next.js
@@ -55,3 +54,9 @@ export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tool
 // Re-export types
 export type { ToastProps, ToastActionElement } from "./toast";
 export type { ChartConfig } from "./chart";
+
+export * from "./button"
+export * from "./card"
+export * from "./form"
+export * from "./input"
+export * from "./label"

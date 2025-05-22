@@ -52,10 +52,9 @@ export function RecentPatientsClient({ recentPatients }: RecentPatientsClientPro
               className="flex items-center gap-3 py-3"
             >
               <ProfileImage
-                url={p.img ?? ""}
-                name={`${p.first_name ?? ""} ${p.last_name ?? ""}`}
+                src={p.img ?? ""}
+                alt={`${p.first_name ?? ""} ${p.last_name ?? ""}`}
                 className="w-11 h-11 bg-blue-100 border-2 border-white shadow"
-                bgColor={p.colorCode ?? ""}
               />
               <div className="flex-1 min-w-0">
                 <div className="font-semibold text-gray-900 truncate">{p.first_name} {p.last_name}</div>
