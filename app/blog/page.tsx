@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Navbar from '@/components/navbar/Navbar';
-import FooterSection from '@/components/sections/FooterSection';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
+import Navbar from "../../components/navbar/Navbar";
+import FooterSection from "../../components/sections/FooterSection";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../components/ui/card";
+import { Button } from "../../components/ui/button";
+import { useToast } from "../../hooks/use-toast";
 import { BookOpen, Calendar, Clock, Eye, ArrowUpRight, Tag, ChevronRight } from 'lucide-react';
 
 // Blog post type definition
