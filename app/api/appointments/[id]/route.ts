@@ -1,16 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import db from "@/lib/db";
 
-type RouteContext = {
-  params: {
-    id: string;
-  };
-};
-
 export async function GET(
-  request: NextRequest,
-  { params }: RouteContext
-): Promise<NextResponse> {
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const appointmentId = parseInt(params.id);
     if (isNaN(appointmentId)) {
