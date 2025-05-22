@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ProfileImage } from "@/components/profile-image";
+import { ProfileImage } from "../../../components/profile-image";
 
 interface Patient {
   id: string;
