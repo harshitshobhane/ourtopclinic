@@ -1,12 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
 
+type RouteContext = {
+  params: {
+    id: string;
+  };
+};
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
-    const appointmentId = parseInt(params.id);
+    const appointmentId = parseInt(context.params.id);
     if (isNaN(appointmentId)) {
       return NextResponse.json({ success: false, message: "Invalid appointment ID" }, { status: 400 });
     }
