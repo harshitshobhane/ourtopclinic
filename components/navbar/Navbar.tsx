@@ -233,77 +233,80 @@ const Navbar = () => {
       {/* Mobile Navigation Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-lg overflow-hidden"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={containerVariants}
-          >
-            <div className="container mx-auto px-4 py-3 flex flex-col space-y-1">
-              <motion.div variants={itemVariants}>
-                <NavLink href="/about_us" onClick={closeMenu} isActive={isActive('/about_us ')}>
-                  <div className="flex items-center">
-                    <Info className="h-4 w-4 mr-2" />
-                    About Us
-                  </div>
-                </NavLink>
-              </motion.div>
-              
-              <motion.div variants={itemVariants}>
-                <NavLink href="/blog" onClick={closeMenu} isActive={isActive('/blog')}>
-                  <div className="flex items-center">
-                    <BookOpen className="h-4 w-4 mr-2" />
-                    Blog
-                  </div>
-                </NavLink>
-              </motion.div>
-              
-              <motion.div variants={itemVariants}>
-                <NavLink href="/partner-with-us" onClick={closeMenu} isActive={isActive('/partner-with-us')}>
-                  <div className="flex items-center">
-                    <Building className="h-4 w-4 mr-2" />
-                    Partner With Us
-                  </div>
-                </NavLink>
-              </motion.div>
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-lg overflow-hidden">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={containerVariants}
+            >
+              <div className="container mx-auto px-4 py-3 flex flex-col space-y-1">
+                <motion.div variants={itemVariants}>
+                  <NavLink href="/about_us" onClick={closeMenu} isActive={isActive('/about_us ')}>
+                    <div className="flex items-center">
+                      <Info className="h-4 w-4 mr-2" />
+                      About Us
+                    </div>
+                  </NavLink>
+                </motion.div>
+                
+                <motion.div variants={itemVariants}>
+                  <NavLink href="/blog" onClick={closeMenu} isActive={isActive('/blog')}>
+                    <div className="flex items-center">
+                      <BookOpen className="h-4 w-4 mr-2" />
+                      Blog
+                    </div>
+                  </NavLink>
+                </motion.div>
+                
+                <motion.div variants={itemVariants}>
+                  <NavLink href="/partner-with-us" onClick={closeMenu} isActive={isActive('/partner-with-us')}>
+                    <div className="flex items-center">
+                      <Building className="h-4 w-4 mr-2" />
+                      Partner With Us
+                    </div>
+                  </NavLink>
+                </motion.div>
 
-              <motion.div variants={itemVariants}>
-                <NavLink href="/contact" onClick={closeMenu} isActive={isActive('/contact')}>
-                  <div className="flex items-center">
-                    <Mail className="h-4 w-4 mr-2" />
-                    Contact
-                  </div>
-                </NavLink>
-              </motion.div>
-              
-              <motion.div variants={itemVariants}>
-                <NavLink href="/app/patient" onClick={closeMenu} isActive={isActive('/app/patient')}>
-                  <div className="flex items-center">
-                    <Stethoscope className="h-4 w-4 mr-2" />
-                    Patient Portal
-                  </div>
-                </NavLink>
-              </motion.div>
-              
-              <motion.div variants={itemVariants}>
-                <NavLink href="/app/doctor" onClick={closeMenu} isActive={isActive('/app/doctor')}>
-                  <div className="flex items-center">
-                    <Stethoscope className="h-4 w-4 mr-2" />
-                    Provider Portal
-                  </div>
-                </NavLink>
-              </motion.div>
-              
-              <motion.div variants={itemVariants} className="pt-2">
-                <Button asChild className="gradient-bg w-full">
-                  <Link href="/onboarding">
-                    Get Started
-                  </Link>
-                </Button>
-              </motion.div>
-            </div>
-          </motion.div>
+                <motion.div variants={itemVariants}>
+                  <NavLink href="/contact" onClick={closeMenu} isActive={isActive('/contact')}>
+                    <div className="flex items-center">
+                      <Mail className="h-4 w-4 mr-2" />
+                      Contact
+                    </div>
+                  </NavLink>
+                </motion.div>
+                
+                <motion.div variants={itemVariants}>
+                  <NavLink href="/app/patient" onClick={closeMenu} isActive={isActive('/app/patient')}>
+                    <div className="flex items-center">
+                      <Stethoscope className="h-4 w-4 mr-2" />
+                      Patient Portal
+                    </div>
+                  </NavLink>
+                </motion.div>
+                
+                <motion.div variants={itemVariants}>
+                  <NavLink href="/app/doctor" onClick={closeMenu} isActive={isActive('/app/doctor')}>
+                    <div className="flex items-center">
+                      <Stethoscope className="h-4 w-4 mr-2" />
+                      Provider Portal
+                    </div>
+                  </NavLink>
+                </motion.div>
+                
+                <div className="pt-2">
+                  <motion.div variants={itemVariants}>
+                    <Button asChild className="gradient-bg w-full">
+                      <Link href="/onboarding">
+                        Get Started
+                      </Link>
+                    </Button>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </nav>
