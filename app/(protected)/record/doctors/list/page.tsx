@@ -68,10 +68,9 @@ const DoctorsList = async (props: SearchParamsProps) => {
     >
       <td className="flex items-center gap-4 p-4">
         <ProfileImage
-          url={item?.img!}
-          name={item?.name}
-          bgColor={item?.colorCode!}
-          textClassName="text-foreground"
+          src={item?.img!}
+          alt={item?.name}
+          className="size-10"
         />
         <div>
           <h3 className="uppercase font-medium">{item?.name}</h3>
@@ -112,7 +111,8 @@ const DoctorsList = async (props: SearchParamsProps) => {
 
   return (
     <div className="bg-card rounded-xl py-6 px-3 2xl:px-6 border border-border/40">
-      <DoctorsListToggle allComponent={DoctorsListContent} />
+      {DoctorsListContent}
+      <DoctorsListToggle />
     </div>
   );
 };
