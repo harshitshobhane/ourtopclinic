@@ -74,8 +74,8 @@ const RecentPatientsClient = ({ patients }: RecentPatientsClientProps) => {
               </span>
             </div>
             <ProfileImage
-              src={patient.img!}
-              alt={`${patient.first_name} ${patient.last_name}`}
+              url={patient.img!}
+              name={`${patient.first_name} ${patient.last_name}`}
               className="size-10"
             />
           </motion.div>

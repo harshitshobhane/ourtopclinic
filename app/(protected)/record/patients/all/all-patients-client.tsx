@@ -42,8 +42,8 @@ export default function AllPatientsClient({ patients }: AllPatientsClientProps) 
           return (
             <li key={p.id} className="flex items-center gap-4 py-4 px-6">
               <ProfileImage
-                src={p.img!}
-                alt={`${p.first_name} ${p.last_name}`}
+                url={p.img!}
+                name={`${p.first_name} ${p.last_name}`}
                 className="size-10"
               />
               <div className="flex-1 min-w-0">

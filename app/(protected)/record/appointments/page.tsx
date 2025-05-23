@@ -91,8 +91,8 @@ const Appointments = async (props: {
       >
         <td className="flex items-center gap-3 py-2 px-4 border-r border-border">
           <ProfileImage
-            src={item?.patient?.img!}
-            alt={patient_name}
+            url={item?.patient?.img!}
+            name={patient_name}
             className="size-10"
           />
           <div>
@@ -105,8 +105,8 @@ const Appointments = async (props: {
         <td className="pl-8 border-r border-border">
           <div className="flex items-center gap-3">
             <ProfileImage
-              src={item.doctor?.img!}
-              alt={item.doctor?.name}
+              url={item.doctor?.img!}
+              name={item.doctor?.name}
               className="size-10"
             />
             <div>

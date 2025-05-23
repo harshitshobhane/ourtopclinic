@@ -54,8 +54,8 @@ export default async function ProvidersPage({ searchParams }: { searchParams?: P
           >
             <div className="flex items-center gap-4">
               <ProfileImage
-                src={doc.img}
-                alt={doc.name}
+                url={doc.img}
+                name={doc.name}
                 className="w-16 h-16 text-xl border-2 border-blue-400 shadow"
               />
               <div className="flex-1">

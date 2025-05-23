@@ -89,8 +89,8 @@ const PatientList = async (props: SearchParamsProps) => {
       >
         <td className="flex items-center gap-4 p-4">
           <ProfileImage
-            src={item?.img!}
-            alt={name}
+            url={item?.img!}
+            name={name}
             className="size-10"
           />
           <div>

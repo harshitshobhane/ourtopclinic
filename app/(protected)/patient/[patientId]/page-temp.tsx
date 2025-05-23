@@ -57,8 +57,8 @@ const PatientProfile = async (props: ParamsProps) => {
       <div className="w-full lg:w-1/3 flex flex-col gap-6">
         <div className="bg-card rounded-2xl shadow-xl border border-border p-8 flex flex-col items-center relative">
           <ProfileImage
-            src={data?.img!}
-            alt={data?.first_name + " " + data?.last_name}
+            url={data?.img!}
+            name={data?.first_name + " " + data?.last_name}
             className="h-28 w-28 mb-4 border-4 border-primary/30 shadow-lg"
           />
           <h1 className="text-2xl font-extrabold text-foreground font-sans tracking-tight mb-1 text-center">
