@@ -59,9 +59,8 @@ export const StatSummary = ({ data, total }: { data: any; total: number }) => {
         </div>
         <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-16 mt-2">
           {[1, 2].map((i, idx) => (
-            <div className="flex flex-col gap-1 rounded-xl px-3 py-2 transition-colors duration-200">
+            <div key={i} className="flex flex-col gap-1 rounded-xl px-3 py-2 transition-colors duration-200">
               <motion.div
-                key={i}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + idx * 0.1, type: "spring", stiffness: 100, damping: 18 }}
