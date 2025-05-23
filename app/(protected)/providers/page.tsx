@@ -54,11 +54,9 @@ export default async function ProvidersPage({ searchParams }: { searchParams?: P
           >
             <div className="flex items-center gap-4">
               <ProfileImage
-                url={doc.img}
-                name={doc.name}
+                src={doc.img}
+                alt={doc.name}
                 className="w-16 h-16 text-xl border-2 border-blue-400 shadow"
-                textClassName="text-xl font-bold"
-                bgColor={doc.colorCode || "#2563eb"}
               />
               <div className="flex-1">
                 <div className="flex items-center justify-between">
