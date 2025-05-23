@@ -94,10 +94,9 @@ const BillingPage = async (props: SearchParamsProps) => {
         <td># {item?.id}</td>
         <td className="flex items-center gap-4 p-4">
           <ProfileImage
-            url={item?.patient?.img!}
-            name={name}
-            bgColor={patient?.colorCode!}
-            textClassName="text-black"
+            src={item?.patient?.img!}
+            alt={name}
+            className="size-10"
           />
           <div>
             <h3 className="uppercase">{name}</h3>
