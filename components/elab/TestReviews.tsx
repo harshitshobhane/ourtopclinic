@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -112,66 +111,67 @@ const TestReviews: React.FC<ReviewProps> = ({ testId, testName }) => {
           <div className="space-y-6">
             {reviews.map((review) => (
               <AnimatePresence key={review.id}>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="border-b pb-4"
-                >
-                  <div className="flex justify-between items-start">
-                    <div className="flex items-center gap-3">
-                      <Avatar>
-                        {review.avatar ? (
-                          <AvatarImage src={review.avatar} alt={review.author} />
-                        ) : null}
-                        <AvatarFallback>{getInitials(review.author)}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-medium">{review.author}</p>
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              size={14}
-                              className={`${
-                                i < review.rating
-                                  ? "text-yellow-400 fill-yellow-400"
-                                  : "text-gray-300"
-                              }`}
-                            />
-                          ))}
+                <div className="border-b pb-4">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div className="flex items-center gap-3">
+                        <Avatar>
+                          {review.avatar ? (
+                            <AvatarImage src={review.avatar} alt={review.author} />
+                          ) : null}
+                          <AvatarFallback>{getInitials(review.author)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="font-medium">{review.author}</p>
+                          <div className="flex items-center">
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                size={14}
+                                className={`${
+                                  i < review.rating
+                                    ? "text-yellow-400 fill-yellow-400"
+                                    : "text-gray-300"
+                                }`}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
+                      <span className="text-sm text-gray-500">{review.date}</span>
                     </div>
-                    <span className="text-sm text-gray-500">{review.date}</span>
-                  </div>
-                  
-                  <p className="mt-3 text-gray-700">{review.comment}</p>
-                  
-                  <div className="mt-3 flex items-center space-x-4">
-                    <button
-                      className={`flex items-center text-sm ${
-                        helpfulClicks[review.id] === 'helpful'
-                          ? 'text-green-600 font-medium'
-                          : 'text-gray-500'
-                      }`}
-                      onClick={() => handleHelpfulClick(review.id, 'helpful')}
-                    >
-                      <ThumbsUp size={14} className="mr-1" />
-                      <span>Helpful ({review.helpful + (helpfulClicks[review.id] === 'helpful' ? 1 : 0)})</span>
-                    </button>
-                    <button
-                      className={`flex items-center text-sm ${
-                        helpfulClicks[review.id] === 'notHelpful'
-                          ? 'text-red-600 font-medium'
-                          : 'text-gray-500'
-                      }`}
-                      onClick={() => handleHelpfulClick(review.id, 'notHelpful')}
-                    >
-                      <ThumbsDown size={14} className="mr-1" />
-                      <span>Not Helpful ({review.notHelpful + (helpfulClicks[review.id] === 'notHelpful' ? 1 : 0)})</span>
-                    </button>
-                  </div>
-                </motion.div>
+                    
+                    <p className="mt-3 text-gray-700">{review.comment}</p>
+                    
+                    <div className="mt-3 flex items-center space-x-4">
+                      <button
+                        className={`flex items-center text-sm ${
+                          helpfulClicks[review.id] === 'helpful'
+                            ? 'text-green-600 font-medium'
+                            : 'text-gray-500'
+                        }`}
+                        onClick={() => handleHelpfulClick(review.id, 'helpful')}
+                      >
+                        <ThumbsUp size={14} className="mr-1" />
+                        <span>Helpful ({review.helpful + (helpfulClicks[review.id] === 'helpful' ? 1 : 0)})</span>
+                      </button>
+                      <button
+                        className={`flex items-center text-sm ${
+                          helpfulClicks[review.id] === 'notHelpful'
+                            ? 'text-red-600 font-medium'
+                            : 'text-gray-500'
+                        }`}
+                        onClick={() => handleHelpfulClick(review.id, 'notHelpful')}
+                      >
+                        <ThumbsDown size={14} className="mr-1" />
+                        <span>Not Helpful ({review.notHelpful + (helpfulClicks[review.id] === 'notHelpful' ? 1 : 0)})</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                </div>
               </AnimatePresence>
             ))}
           </div>
