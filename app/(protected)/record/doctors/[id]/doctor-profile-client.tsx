@@ -133,9 +133,6 @@ export default function DoctorProfileClient({
               <div className="md:ml-auto">
                 <EditProfileButton 
                   profileData={data}
-                  dialogTitle="Edit Doctor Profile"
-                  dialogDescription="Update your profile information"
-                  allowBannerEdit={true}
                 />
               </div>
             </div>
