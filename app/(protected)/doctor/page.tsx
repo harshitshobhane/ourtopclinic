@@ -15,7 +15,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { DashboardCardsClient } from "./dashboard-cards-client";
 import { ProfileImage } from "@/components/profile-image";
-import { RecentPatientsClient } from "./recent-patients-client";
+import  RecentPatientsClient  from "./recent-patients-client";
 
 const DoctorDashboard = async () => {
   const user = await currentUser();
