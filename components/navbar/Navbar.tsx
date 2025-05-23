@@ -128,7 +128,7 @@ const Navbar = () => {
               "h-10 w-10 rounded-full flex items-center justify-center transition-all",
               isScrolled ? "gradient-bg" : "bg-white/20 backdrop-blur-md dark:bg-gray-800/40"
             )}>
-              <HeartPulse className="h-6 w-6 text-primary dark:text-white" />
+              <img src="/logo.png" alt="OurTopClinic logo" className="h-8 w-8 object-contain" />
             </div>
             <span className={cn(
               "font-bold text-xl",
