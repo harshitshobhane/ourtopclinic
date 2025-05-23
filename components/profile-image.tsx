@@ -2,16 +2,20 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface ProfileImageProps {
-  src?: string | null;
-  alt?: string;
+  url?: string | null;
+  name?: string;
   className?: string;
+  textClassName?: string;
+  bgColor?: string;
   size?: number;
 }
 
 export function ProfileImage({
-  src,
-  alt = "Profile",
+  url,
+  name = "Profile",
   className,
+  textClassName,
+  bgColor,
   size = 40,
 }: ProfileImageProps) {
   return (
@@ -20,19 +24,23 @@ export function ProfileImage({
         "relative overflow-hidden rounded-full bg-muted",
         className
       )}
-      style={{ width: size, height: size }}
+      style={{ 
+        width: size, 
+        height: size,
+        backgroundColor: bgColor 
+      }}
     >
-      {src ? (
+      {url ? (
         <Image
-          src={src}
-          alt={alt}
+          src={url}
+          alt={name}
           fill
           className="object-cover"
           sizes={`${size}px`}
         />
       ) : (
-        <div className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground">
-          {alt.charAt(0).toUpperCase()}
+        <div className={cn("flex h-full w-full items-center justify-center", textClassName)}>
+          {name.charAt(0).toUpperCase()}
         </div>
       )}
     </div>
