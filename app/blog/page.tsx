@@ -136,7 +136,7 @@ const Blog = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {visiblePosts.map(post => (
                   <Card key={post.id} className="overflow-hidden hover-lift group">
-                    <div className="relative h-48 overflow-hidden aspect-[16/9]">
+                    <div className="relative overflow-hidden aspect-[16/9]">
                       <img 
                         src={post.image} 
                         alt={post.title}
