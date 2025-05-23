@@ -103,23 +103,27 @@ const Contact = () => {
         <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-accent/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         
         <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent"
-          >
-            Get In Touch
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
-          >
-            Have questions about our services or partnership opportunities? 
-            We're here to help. Reach out to our team for assistance.
-          </motion.p>
+          <div className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              style={{ display: 'block' }}
+            >
+              Get In Touch
+            </motion.h1>
+          </div>
+          <div className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              style={{ display: 'block' }}
+            >
+              Have questions about our services or partnership opportunities? 
+              We're here to help. Reach out to our team for assistance.
+            </motion.p>
+          </div>
         </div>
       </section>
       
@@ -141,117 +145,116 @@ const Contact = () => {
                 <CardContent className="p-6">
                   <AnimatePresence mode="wait">
                     {formStatus === 'submitted' ? (
-                      <motion.p
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        className="flex flex-col items-center justify-center py-8"
-                      >
-                        <motion.p 
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                          className="h-16 w-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4"
+                      <div className="flex flex-col items-center justify-center py-8">
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.9 }}
+                          style={{ display: 'block' }}
                         >
-                          <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
-                        </motion.p>
-                        <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
-                        <p className="text-center text-muted-foreground mb-6">
-                          Thank you for reaching out. Our team will get back to you shortly.
-                        </p>
-                        <Button 
-                          onClick={() => setFormStatus('idle')}
-                          className="bg-gradient-to-r from-primary to-accent hover:opacity-90"
-                        >
-                          Send Another Message
-                        </Button>
-                      </motion.p>
+                          <div className="h-16 w-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                              style={{ display: 'block' }}
+                            >
+                              <CheckCircle className="h-8 w-8 text-green-600 dark:text-green-400" />
+                            </motion.div>
+                          </div>
+                        </motion.div>
+                      </div>
                     ) : (
-                      <motion.form
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onSubmit={handleSubmit}
-                        className="space-y-6"
-                      >
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="name">Your Name</Label>
-                            <Input 
-                              id="name"
-                              placeholder="John Doe"
-                              required
-                              className="bg-muted/40 focus:ring-2 focus:ring-primary/20 transition-all"
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="email">Email Address</Label>
-                            <Input 
-                              id="email"
-                              type="email"
-                              placeholder="johndoe@example.com"
-                              required
-                              className="bg-muted/40 focus:ring-2 focus:ring-primary/20 transition-all"
-                            />
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="phone">Phone Number (Optional)</Label>
-                          <Input 
-                            id="phone"
-                            type="tel"
-                            placeholder="+1 (555) 123-4567"
-                            className="bg-muted/40 focus:ring-2 focus:ring-primary/20 transition-all"
-                          />
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="subject">Inquiry Type</Label>
-                          <Select>
-                            <SelectTrigger className="bg-muted/40 focus:ring-2 focus:ring-primary/20 transition-all">
-                              <SelectValue placeholder="Select an inquiry type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="partnership">Partnership Inquiry</SelectItem>
-                              <SelectItem value="services">Services Information</SelectItem>
-                              <SelectItem value="careers">Career Opportunities</SelectItem>
-                              <SelectItem value="support">Technical Support</SelectItem>
-                              <SelectItem value="other">Other</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="message">Your Message</Label>
-                          <Textarea 
-                            id="message"
-                            placeholder="Please provide details about your inquiry..."
-                            rows={5}
-                            required
-                            className="bg-muted/40 resize-none focus:ring-2 focus:ring-primary/20 transition-all"
-                          />
-                        </div>
-                        
-                        <Button 
-                          type="submit" 
-                          className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]"
-                          disabled={formStatus === 'submitting'}
-                        >
-                          {formStatus === 'submitting' ? (
-                            <motion.p
-                              animate={{ rotate: 360 }}
-                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                              className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
-                            />
-                          ) : (
-                            <>
-                              Send Message
-                              <Send className="ml-2 h-4 w-4" />
-                            </>
-                          )}
-                        </Button>
-                      </motion.form>
+                      <div className="space-y-6">
+                        <form onSubmit={handleSubmit}>
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            style={{ display: 'block' }}
+                          >
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              <div className="space-y-2">
+                                <Label htmlFor="name">Your Name</Label>
+                                <Input 
+                                  id="name"
+                                  placeholder="John Doe"
+                                  required
+                                  className="bg-muted/40 focus:ring-2 focus:ring-primary/20 transition-all"
+                                />
+                              </div>
+                              <div className="space-y-2">
+                                <Label htmlFor="email">Email Address</Label>
+                                <Input 
+                                  id="email"
+                                  type="email"
+                                  placeholder="johndoe@example.com"
+                                  required
+                                  className="bg-muted/40 focus:ring-2 focus:ring-primary/20 transition-all"
+                                />
+                              </div>
+                            </div>
+                            
+                            <div className="space-y-2">
+                              <Label htmlFor="phone">Phone Number (Optional)</Label>
+                              <Input 
+                                id="phone"
+                                type="tel"
+                                placeholder="+1 (555) 123-4567"
+                                className="bg-muted/40 focus:ring-2 focus:ring-primary/20 transition-all"
+                              />
+                            </div>
+                            
+                            <div className="space-y-2">
+                              <Label htmlFor="subject">Inquiry Type</Label>
+                              <Select>
+                                <SelectTrigger className="bg-muted/40 focus:ring-2 focus:ring-primary/20 transition-all">
+                                  <SelectValue placeholder="Select an inquiry type" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="partnership">Partnership Inquiry</SelectItem>
+                                  <SelectItem value="services">Services Information</SelectItem>
+                                  <SelectItem value="careers">Career Opportunities</SelectItem>
+                                  <SelectItem value="support">Technical Support</SelectItem>
+                                  <SelectItem value="other">Other</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            
+                            <div className="space-y-2">
+                              <Label htmlFor="message">Your Message</Label>
+                              <Textarea 
+                                id="message"
+                                placeholder="Please provide details about your inquiry..."
+                                rows={5}
+                                required
+                                className="bg-muted/40 resize-none focus:ring-2 focus:ring-primary/20 transition-all"
+                              />
+                            </div>
+                            
+                            <Button 
+                              type="submit" 
+                              className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                              disabled={formStatus === 'submitting'}
+                            >
+                              {formStatus === 'submitting' ? (
+                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full">
+                                  <motion.div
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                    style={{ display: 'block' }}
+                                  />
+                                </div>
+                              ) : (
+                                <>
+                                  Send Message
+                                  <Send className="ml-2 h-4 w-4" />
+                                </>
+                              )}
+                            </Button>
+                          </motion.div>
+                        </form>
+                      </div>
                     )}
                   </AnimatePresence>
                 </CardContent>
@@ -259,45 +262,46 @@ const Contact = () => {
             </motion.form>
             
             {/* Enhanced Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="space-y-8"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
-                {contactInfo.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="h-full"
-                    >
-                      <Card className="bg-white dark:bg-gray-800 shadow-md border-none hover:shadow-lg transition-all hover:-translate-y-1 duration-300 h-full min-h-[180px] flex flex-col justify-between">
-                        <CardContent className="p-6 flex flex-col h-full">
-                          <div className={`h-12 w-12 rounded-full bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-4`}>
-                            <Icon className={`h-6 w-6 ${item.color}`} />
-                          </div>
-                          <h3 className="font-bold mb-2">{item.title}</h3>
-                          <div className="space-y-1 flex-1">
-                            {item.details.map((detail, i) => (
-                              <p
-                                key={i}
-                                className={`text-muted-foreground text-sm ${item.title === 'Address' ? 'break-words' : ''}`}
-                              >
-                                {detail}
-                              </p>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  );
-                })}
-              </div>
+            <div className="space-y-8">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+                  {contactInfo.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div key={index} className="h-full">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          <Card className="bg-white dark:bg-gray-800 shadow-md border-none hover:shadow-lg transition-all hover:-translate-y-1 duration-300 h-full min-h-[180px] flex flex-col justify-between">
+                            <CardContent className="p-6 flex flex-col h-full">
+                              <div className={`h-12 w-12 rounded-full bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-4`}>
+                                <Icon className={`h-6 w-6 ${item.color}`} />
+                              </div>
+                              <h3 className="font-bold mb-2">{item.title}</h3>
+                              <div className="space-y-1 flex-1">
+                                {item.details.map((detail, i) => (
+                                  <p
+                                    key={i}
+                                    className={`text-muted-foreground text-sm ${item.title === 'Address' ? 'break-words' : ''}`}
+                                  >
+                                    {detail}
+                                  </p>
+                                ))}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
               
               {/* Enhanced FAQ Section */}
               <Card className="bg-white dark:bg-gray-800 shadow-md border-none">
@@ -309,43 +313,47 @@ const Contact = () => {
                     {faqs.map((faq, index) => {
                       const Icon = faq.icon;
                       return (
-                        <motion.div
+                        <div
                           key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
                           className={`p-4 rounded-lg border bg-muted/30 cursor-pointer transition-all hover:bg-muted/50 ${
                             activeFAQ === index ? 'ring-2 ring-primary/20' : ''
                           }`}
                           onClick={() => setActiveFAQ(activeFAQ === index ? null : index)}
                         >
-                          <div className="flex items-start gap-3">
-                            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                              <Icon className="h-4 w-4 text-primary" />
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                <Icon className="h-4 w-4 text-primary" />
+                              </div>
+                              <div>
+                                <h4 className="font-medium mb-2">{faq.question}</h4>
+                                <AnimatePresence>
+                                  {activeFAQ === index && (
+                                    <div className="text-sm text-muted-foreground overflow-hidden">
+                                      <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                      >
+                                        {faq.answer}
+                                      </motion.div>
+                                    </div>
+                                  )}
+                                </AnimatePresence>
+                              </div>
                             </div>
-                            <div>
-                              <h4 className="font-medium mb-2">{faq.question}</h4>
-                              <AnimatePresence>
-                                {activeFAQ === index && (
-                                  <motion.p
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: "auto", opacity: 1 }}
-                                    exit={{ height: 0, opacity: 0 }}
-                                    className="text-sm text-muted-foreground overflow-hidden"
-                                  >
-                                    {faq.answer}
-                                  </motion.p>
-                                )}
-                              </AnimatePresence>
-                            </div>
-                          </div>
-                        </motion.div>
+                          </motion.div>
+                        </div>
                       );
                     })}
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -399,30 +407,31 @@ const Contact = () => {
       
       {/* Enhanced Newsletter CTA */}
       <section className="py-16 px-4 bg-gradient-to-r from-primary/30 to-accent/30 mt-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="container mx-auto max-w-3xl text-center"
-        >
-          <h2 className="text-2xl font-bold mb-4">Stay Updated</h2>
-          <p className="text-muted-foreground mb-6">
-            Subscribe to our newsletter to receive the latest updates about our services and healthcare insights.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-            <Input 
-              placeholder="Enter your email" 
-              type="email" 
-              className="bg-white/80 dark:bg-gray-800 focus:ring-2 focus:ring-primary/20 transition-all backdrop-blur-sm" 
-            />
-            <Button asChild className="whitespace-nowrap bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]">
-              <Link href="/about_us">
-                Learn More
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </motion.div>
+        <div className="container mx-auto max-w-3xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-2xl font-bold mb-4">Stay Updated</h2>
+            <p className="text-muted-foreground mb-6">
+              Subscribe to our newsletter to receive the latest updates about our services and healthcare insights.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+              <Input 
+                placeholder="Enter your email" 
+                type="email" 
+                className="bg-white/80 dark:bg-gray-800 focus:ring-2 focus:ring-primary/20 transition-all backdrop-blur-sm" 
+              />
+              <Button asChild className="whitespace-nowrap bg-gradient-to-r from-primary to-accent hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                <Link href="/about_us">
+                  Learn More
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </motion.div>
+        </div>
       </section>
       
       <FooterSection />
