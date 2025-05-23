@@ -124,20 +124,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
-            <div className={cn(
-              "h-10 w-10 rounded-full flex items-center justify-center transition-all",
-              isScrolled ? "gradient-bg" : "bg-white/20 backdrop-blur-md dark:bg-gray-800/40"
-            )}>
-              <img src="/logo.png" alt="OurTopClinic logo" className="h-8 w-8 object-contain" />
-            </div>
-            <span className={cn(
-              "font-bold text-xl",
-              isScrolled
-                ? "text-gray-800 dark:text-white"
-                : "text-gray-800 dark:text-white"
-            )}>
-              OurTopClinic
-            </span>
+            <img src="/logo.png" alt="OurTopClinic logo" className="h-20 w-auto" />
           </Link>
         </div>
 

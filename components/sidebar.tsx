@@ -180,19 +180,30 @@ export const Sidebar = async () => {
       <div className="absolute right-0 top-0 h-full w-[2px] bg-gradient-to-b from-transparent via-primary/50 to-transparent transform scale-y-0 group-hover:scale-y-100 transition-transform duration-300 will-change-transform"></div>
 
       <div className="p-4">
-        <div className="flex flex-col items-center lg:items-start gap-3 mb-8 group/logo">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="OurTop Clinic Logo"
-              width={43}
-              height={43}
-              className="rounded-full object-contain"
-              priority
-            />
-            <span className="hidden lg:inline-block font-bold text-lg tracking-tight font-sans whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 will-change-opacity gradient-text" style={{letterSpacing: '0.5px'}}>
-              OurTopClinic
-            </span>
+        <div className="flex flex-col items-center lg:items-start gap-3 mb-8 group/logo w-full">
+          <Link href="/" className="flex flex-col items-center w-full">
+            {/* Logo for retracted state */}
+            <div className="group-hover:hidden flex justify-center w-full">
+              <Image
+                src="/logo1.png"
+                alt="OurTop Clinic Logo Small"
+                width={43}
+                height={43}
+                className="rounded-full object-contain"
+                priority
+              />
+            </div>
+            {/* Logo for expanded state on hover */}
+            <div className="hidden group-hover:flex justify-center w-full">
+              <Image
+                src="/logo.png"
+                alt="OurTop Clinic Logo Large"
+                width={150}
+                height={150}
+                className="object-contain"
+                priority
+              />
+            </div>
           </Link>
         </div>
 
