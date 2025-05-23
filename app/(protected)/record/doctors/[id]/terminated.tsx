@@ -25,11 +25,9 @@ const DoctorProfile = async (props: { params: { id: string } }) => {
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="bg-blue-50 py-6 px-4 rounded-md flex-1 flex gap-4">
             <ProfileImage
-              url={data?.img!}
-              name={data?.name}
+              src={data?.img!}
+              alt={data?.name}
               className="size-20"
-              bgColor={data?.colorCode!}
-              textClassName="text-4xl text-black"
             />
 
             <div className="w-2/3 flex flex-col justify-between gap-x-4">

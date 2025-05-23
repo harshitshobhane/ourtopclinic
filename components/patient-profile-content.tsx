@@ -79,11 +79,9 @@ export const PatientProfileContent = ({
                   className="relative"
                 >
                   <ProfileImage
-                    url={data?.img!}
-                    name={data?.first_name + " " + data?.last_name}
+                    src={data?.img!}
+                    alt={data?.first_name + " " + data?.last_name}
                     className="h-32 w-32 rounded-full ring-4 ring-white shadow-xl"
-                    bgColor={data?.colorCode!}
-                    textClassName="text-4xl"
                   />
                   <span className="absolute -bottom-2 -right-2 flex items-center gap-1">
                     <span className="inline-block w-4 h-4 rounded-full bg-green-500 border-2 border-white"></span>

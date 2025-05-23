@@ -130,7 +130,7 @@ const DoctorDashboard = async () => {
 
         {/* Recent Patients Card */}
         <RecentPatientsClient
-          recentPatients={
+          patients={
             (last5Records ?? [])
               .filter((a, i, arr) =>
                 arr.findIndex(x => x.patient?.id === a.patient?.id) === i && a.patient)
