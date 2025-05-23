@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Navbar from "@/components/navbar/Navbar";
 import { useAuth, useUser } from "@clerk/nextjs";
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -14,15 +15,16 @@ interface AnimatedSectionProps {
 }
 
 const AnimatedSection = ({ children, delay = 0, className = "" }: AnimatedSectionProps) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay }}
-    className={className}
-  >
-    {children}
-  </motion.div>
+  <div className={className}>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+    >
+      {children}
+    </motion.div>
+  </div>
 );
 
 export default function Home() {
@@ -76,20 +78,27 @@ export default function Home() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.6}>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
                   { icon: Shield, text: "Secure" },
                   { icon: Lock, text: "Private" },
                   { icon: Smartphone, text: "Mobile" }
                 ].map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{ scale: 1.05 }}
-                    className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center"
-                  >
-                    <feature.icon className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                    <p className="text-sm text-gray-600">{feature.text}</p>
-                  </motion.div>
+                  <div key={index} className="group">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <Card className="h-full border-primary/20 hover:shadow-lg transition-all">
+                        <CardHeader>
+                          <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                            <feature.icon className="h-6 w-6 text-primary" />
+                          </div>
+                          <CardTitle>{feature.text}</CardTitle>
+                          <CardDescription>{feature.text}</CardDescription>
+                        </CardHeader>
+                      </Card>
+                    </motion.div>
+                  </div>
                 ))}
               </div>
             </AnimatedSection>
