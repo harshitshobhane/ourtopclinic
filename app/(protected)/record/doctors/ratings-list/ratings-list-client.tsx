@@ -28,7 +28,13 @@ export const RatingsListClient = ({ ratings }: RatingsListClientProps) => {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100/60 p-4 sm:p-6 lg:p-8"
+      style={{ 
+        minHeight: '100vh',
+        background: 'linear-gradient(to bottom right, rgb(249 250 251), rgba(243 244 246 / 0.6))',
+        padding: '1rem',
+        '@media (min-width: 640px)': { padding: '1.5rem' },
+        '@media (min-width: 1024px)': { padding: '2rem' }
+      }}
     >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -47,7 +53,13 @@ export const RatingsListClient = ({ ratings }: RatingsListClientProps) => {
         <motion.div 
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="bg-white rounded-2xl shadow-lg p-6 mb-8"
+          style={{ 
+            backgroundColor: 'white',
+            borderRadius: '1rem',
+            boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+            padding: '1.5rem',
+            marginBottom: '2rem'
+          }}
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -87,7 +99,14 @@ export const RatingsListClient = ({ ratings }: RatingsListClientProps) => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow"
+              style={{ 
+                backgroundColor: 'white',
+                borderRadius: '1rem',
+                boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+                padding: '1.5rem',
+                transition: 'box-shadow 0.2s',
+                ':hover': { boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }
+              }}
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-4">
