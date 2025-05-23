@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { ArrowRight } from 'lucide-react';
+import { PatientInfo } from './page';
 
 interface PatientInfoFormProps {
   initialData: {
@@ -19,7 +20,7 @@ interface PatientInfoFormProps {
     state: string;
     zipCode: string;
   };
-  onSubmit: (data: any) => void;
+  onSubmit: (data: PatientInfo) => void;
 }
 
 const PatientInfoForm: React.FC<PatientInfoFormProps> = ({ initialData, onSubmit }) => {
@@ -28,7 +29,7 @@ const PatientInfoForm: React.FC<PatientInfoFormProps> = ({ initialData, onSubmit
     mode: 'onChange'
   });
   
-  const submitHandler = (data) => {
+  const submitHandler = (data: PatientInfo) => {
     onSubmit(data);
   };
   

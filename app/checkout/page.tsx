@@ -12,7 +12,7 @@ import OrderSummary from './OrderSummary';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, X, User, FileText } from 'lucide-react';
 
-type PatientInfo = {
+export type PatientInfo = {
   firstName: string;
   lastName: string;
   email: string;
